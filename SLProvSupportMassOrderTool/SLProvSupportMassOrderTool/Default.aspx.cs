@@ -1,17 +1,18 @@
 ﻿/*
+INCOMPLETE PROJECT
 SoftLayer Mass Order Tool
 uses web reference https://api.softlayer.com/soap/v3/SoftLayer_Product_Order?wsdl
 
 This was written for the provisioning support group to efficiently and easily drop large orders to stress test provisioning systems
-it allows for the choice of preset config, datacenter, operating system, and quantity of servers to provision
+it allows for the choice of preset config, datacenter, operating system, and quantity of servers to provision.
 builds an order template of type SoftLayer_Container_Product_Order_Hardware_Server to send to orderService.*
-it will allow for successive submissions with the hostname indexing appropriately
-hostnames are of standard format PST[DC][OS][index]
+it will allow for successive submissions with the hostname indexing appropriately.
+hostnames are of standard format PST[DC][OS][###].
 
 Considerations:
-currently server quantity is confirmed by checking hostnames
-order verification and submission is not yet implemented.  it is commented out until proper api pulls are athorized by softlayer account
-order items, or billing items, are not properly defined in getconfig preconfigs.  This information needs to come from someone in house to help.
+Currently server quantity is confirmed by checking hostnames.
+Order verification and submission is not yet implemented.  it is commented out until proper api pulls are athorized by softlayer account.
+Order items, or billing items, are not properly defined in getconfig preconfigs.  This information needs to come from someone in house to help.
 
 
 Valuable References: 
@@ -33,7 +34,7 @@ namespace SLProvSupportMassOrderTool
     public partial class Default : System.Web.UI.Page
     {
 
-        SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = new SoftLayer_Container_Product_Order_Hardware_Server();
+        //SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = new SoftLayer_Container_Product_Order_Hardware_Server();
         String username = "";
         String apiKey = "";
         int hostNameIndex = 0;
@@ -65,6 +66,7 @@ namespace SLProvSupportMassOrderTool
             }
 
         }
+        //takes the user input from the app and builds an order template accordingly then returns the completed template
         private  SoftLayer_Container_Product_Order_Hardware_Server buildTemplate()
         {
             //create order variables
@@ -74,7 +76,7 @@ namespace SLProvSupportMassOrderTool
             hostNameIndex = int.Parse(ViewState["hostNameIndex"].ToString());
             
             //checking for realistic order amounts and setting quantity
-            if (int.Parse(quantityTextBox.Text) >= 1 && int.Parse(quantityTextBox.Text) <= 50 && quantityTextBox.Text != "")
+            if (int.Parse(quantityTextBox.Text) >= 1 && int.Parse(quantityTextBox.Text) <= 50 && quantityTextBox.Text != "") //FormatException: Input string was not in a correct format.  this happens when textbox has nothing entered.
                 quantity = int.Parse(quantityTextBox.Text);
             else
                 verifyLabel.Text = "you must select between 1 and 50 servers.";
