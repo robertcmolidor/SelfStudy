@@ -33,39 +33,52 @@ namespace SLProvSupportMassOrderTool
 {
     public partial class Default : System.Web.UI.Page
     {
-
-        //SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = new SoftLayer_Container_Product_Order_Hardware_Server();
-        String username = "";
-        String apiKey = "";
-        int hostNameIndex = 0;
+        String username = "";                                       //set static to username of softlayer account
+        String apiKey = "";                                         //set static to apikey found in the customer portal
+        int hostNameIndex = 0;                                      //creating a global host name index incrementing per server ordered
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
             {
-                ViewState.Add("hostNameIndex", 0);
+                ViewState.Add("hostNameIndex", 0);                  //adds a hostNameIndex viewstate if this is the first load
                 
             }
                 
         }
         protected void verifyOrderButton_Click(object sender, EventArgs e)
         {
-            SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();
-            if (verifyOrder(orderTemplate))
+            SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();  //creates new order template and sets it to the values returned by build template
+            try
             {
-                setVerifyLabel(orderTemplate);
+                if (verifyOrder(orderTemplate))                                                     //sends template to verifyorder and sets label if true
+                {
+                    setVerifyLabel(orderTemplate);
+                }
             }
+            catch (Exception ex)
+            {
+                setVerifyLabel("ERROR: Order did not pass verification" + ex.Message);
+            }
+                
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
             SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();
-            if (submitOrder(orderTemplate))
+            try
             {
-                appendOrderedLabel(orderTemplate);
-                ViewState["hostNameIndex"] = hostNameIndex;
-
+                if (submitOrder(orderTemplate))
+                {
+                    appendOrderedLabel(orderTemplate);
+                    ViewState["hostNameIndex"] = hostNameIndex;
+                }
             }
-
+            catch (Exception ex)
+            {
+                setVerifyLabel("ERROR: Order did not submit" + ex.Message);
+            }
+            
         }
+
         //takes the user input from the app and builds an order template accordingly then returns the completed template
         private  SoftLayer_Container_Product_Order_Hardware_Server buildTemplate()
         {
@@ -229,7 +242,10 @@ namespace SLProvSupportMassOrderTool
         {
             verifyLabel.Text = orderTemplate.hardware.Length.ToString() + " HardWares Verified";
         }
-
+        private void setVerifyLabel(string output)
+        {
+            verifyLabel.Text = output;
+        }
 
     }
     }
