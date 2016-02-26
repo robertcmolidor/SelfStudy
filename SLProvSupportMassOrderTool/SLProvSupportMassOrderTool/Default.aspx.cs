@@ -12,6 +12,7 @@ namespace SLProvSupportMassOrderTool
     public partial class Default : System.Web.UI.Page
     {
 
+        SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = new SoftLayer_Container_Product_Order_Hardware_Server();
         String username = "";
         String apiKey = "";
         
@@ -23,26 +24,42 @@ namespace SLProvSupportMassOrderTool
             }
                 
         }
-
+        protected void verifyOrderButton_Click(object sender, EventArgs e)
+        {
+            SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();
+            if (verifyOrder(orderTemplate))
+            {
+                setVerifyLabel(orderTemplate);
+            }
+        }
         protected void Button1_Click(object sender, EventArgs e)
+        {
+            SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();
+            if (submitOrder(orderTemplate))
+            {
+                appendOrderedLabel(orderTemplate);
+                ViewState["hostNameIndex"] = orderTemplate.hardware.Length;
+
+            }
+
+        }
+        private  SoftLayer_Container_Product_Order_Hardware_Server buildTemplate()
         {
             //create order variables
             string hostname = "PST" + locationDropDown.SelectedItem.Text + osDropDown.SelectedItem.Text;                       //creates the hostname string with pst[location][os][index]
-            string domain = "testdomain.com";                                                        //setting this to testdomain for now since it's been the standard                                                                     
+            string domain = "testdomain.com";                                                                                  //setting this to testdomain for now since it's been the standard                                                                     
             int quantity = 0;
             int hostNameIndex = int.Parse(ViewState["hostNameIndex"].ToString());
+            
             //checking for realistic order amounts and setting quantity
             if (int.Parse(quantityTextBox.Text) >= 1 && int.Parse(quantityTextBox.Text) <= 50 && quantityTextBox.Text != "")
                 quantity = int.Parse(quantityTextBox.Text);
             else
-                resultLabel.Text ="you must select between 1 and 50 servers.";
-
-
-
+                verifyLabel.Text = "you must select between 1 and 50 servers.";
 
             //defining orderItems                                                   //this is used to flag product IDs for our order. this is important.
             int[] orderItems = GetConfig(int.Parse(configDropDown.SelectedValue));  //sends the selected config to getconfig and sets the configs to orderItems
-            Array.Resize(ref orderItems, orderItems.Length + 1);                    //resizes array to squeze in the OS
+            Array.Resize(ref orderItems, orderItems.Length + 1);                    //resizes array to squeeze in the OS
             orderItems[orderItems.GetUpperBound(0)] = int.Parse(osDropDown.Text);   //sets the last slot in the array to os id
 
             //create an order template
@@ -52,55 +69,39 @@ namespace SLProvSupportMassOrderTool
             orderTemplate.packageId = 50; //apparently package ID 50 denotes we're ording a bare metal.  
             orderTemplate.packageIdSpecified = true;
 
-
             //sets selected location from the drop down.  it's the value of the selected DC which will be changed to the location ID
             orderTemplate.location = locationDropDown.SelectedValue.ToString();
             orderTemplate.quantity = quantity;
             orderTemplate.quantitySpecified = true;
             orderTemplate.hardware = new SoftLayer_Hardware_Server[quantity];               //creating array of quantity size
 
-            for (int i=0; i < quantity; i++)
+            for (int i = 0; i < quantity; i++)
             {
-                orderTemplate.hardware[i] = new SoftLayer_Hardware_Server();                 //initializing array of servers quantity size
-                orderTemplate.hardware[i].hostname = hostname + hostNameIndex.ToString("000");    //sets hostname to formatted string  need to figure out how to force 3 spots
-                orderTemplate.hardware[i].domain = domain;                                   //sets domain to provided domain
+                orderTemplate.hardware[i] = new SoftLayer_Hardware_Server();                    //initializing array of servers quantity size
+                orderTemplate.hardware[i].hostname = hostname + hostNameIndex.ToString("000");  //sets hostname to formatted string
+                orderTemplate.hardware[i].domain = domain;                                      //sets domain to provided domain
                 hostNameIndex++;
             }
-            ViewState["hostNameIndex"] = hostNameIndex;
+            //ViewState["hostNameIndex"] = hostNameIndex;
 
-            //display the stuff.  bye!
-            for (int i = 0; i < quantity; i++)
-                resultLabel.Text += orderTemplate.hardware[i].hostname + "." + orderTemplate.hardware[i].domain +"<br />";
-
-
-            
-
-
-
-
-
-            /*set username and apikey to a new authenticate
-            authenticate authenticate = new authenticate();
-            authenticate.username = username;
-            authenticate.apiKey = apiKey;
-            */
-
-
-
-
-
-
-
-
-
-
+            // Convert our array of orderItems ids into SoftLayer_Product_Item_Price objects
+            List<SoftLayer_Product_Item_Price> orderPrices = new List<SoftLayer_Product_Item_Price>();   //creating a list of product item prices based on our orderItems
+            foreach (int priceId in orderItems)                                                          //parses through each index of orderItems[]
+            {
+                SoftLayer_Product_Item_Price price = new SoftLayer_Product_Item_Price();                 //creates new softlayer product item price called price
+                price.id = priceId;                                                                      //price.id is set to the contents of orderItems[]
+                price.idSpecified = true;                                                                //Price.idSpecified set to true since there is content
+                orderPrices.Add(price);                                                                  //adds price to the list                                                              
+            }
+            orderTemplate.prices = orderPrices.ToArray();
+            return orderTemplate;
         }
 
-        //this is going to take the selected value of the congiguration selection and spit back a config.  
+        //this is going to take the selected value of the configuration selection and spit back a config.  
         private int[] GetConfig(int selection)
         {
-            
-            switch(selection)//config 0
+
+            switch (selection)//config 0
             {
                 case 0:
                     {
@@ -142,14 +143,69 @@ namespace SLProvSupportMassOrderTool
                         int[] orderItems = { };
                         return orderItems;
                     }
-                 
+
             }
             int[] orderNull = { };
             return orderNull;
-
-
-
-
         }
+
+        private bool verifyOrder(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
+        {
+
+            /*authenticate authenticate = new authenticate();
+            authenticate.username = username;
+            authenticate.apiKey = apiKey;
+            SoftLayer_Product_OrderService orderService = new SoftLayer_Product_OrderService();
+            orderService.authenticateValue = authenticate;
+            try
+            {
+                SoftLayer_Container_Product_Order_Hardware_Server verifiedOrder = (SoftLayer_Container_Product_Order_Hardware_Server)orderService.verifyOrder(orderTemplate);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            */
+            return true;
+        }
+
+        private bool submitOrder(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
+        {
+            /*
+            authenticate authenticate = new authenticate();
+            authenticate.username = username;
+            authenticate.apiKey = apiKey;
+            SoftLayer_Product_OrderService orderService = new SoftLayer_Product_OrderService();
+            orderService.authenticateValue = authenticate;
+            try
+            {
+                SoftLayer_Container_Product_Order_Receipt orderReceipt = orderService.placeOrder(orderTemplate, false);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            */
+            return true;
+        }
+
+        private void appendOrderedLabel(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
+        {
+            int i = orderTemplate.hardware.Length-1;
+            orderedLabel.Text += orderTemplate.hardware[0].hostname + "." + orderTemplate.hardware[0].domain 
+                + "<br /> Through<br />" 
+                + orderTemplate.hardware[i].hostname 
+                + "." 
+                + orderTemplate.hardware[i].domain
+                +"<br />";
+        }
+        private void setVerifyLabel(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
+        {
+            verifyLabel.Text = orderTemplate.hardware.Length.ToString() + " HardWares Verified";
+        }
+
+
     }
-}
+    }

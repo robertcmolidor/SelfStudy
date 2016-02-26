@@ -10,9 +10,11 @@
     <form id="form1" runat="server">
     <div>
     
-        SoftLayer API Testing<br />
         <br />
-        Select a DC<br />
+        SL Mass Order Tool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br />
+        Select a DC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Select a Config&nbsp;&nbsp;&nbsp;&nbsp; Select an OS<br />
         <asp:DropDownList ID="locationDropDown" runat="server">
             <asp:ListItem Value="0">Dal01</asp:ListItem>
             <asp:ListItem Value="1">Dal05</asp:ListItem>
@@ -20,18 +22,14 @@
             <asp:ListItem Value="3">Dal07</asp:ListItem>
             <asp:ListItem Value="4">Dal09</asp:ListItem>
         </asp:DropDownList>
-        <br />
-        <br />
-        Select a Config<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="configDropDown" runat="server">
             <asp:ListItem Value="0">Config 0</asp:ListItem>
             <asp:ListItem Value="1">Config 1</asp:ListItem>
             <asp:ListItem Value="2">Config 2</asp:ListItem>
             <asp:ListItem Value="3">Config 3</asp:ListItem>
         </asp:DropDownList>
-        <br />
-        <br />
-        Select an OS<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <asp:DropDownList ID="osDropDown" runat="server">
             <asp:ListItem Value="0">RedHat</asp:ListItem>
             <asp:ListItem Value="1">CentOS</asp:ListItem>
@@ -39,19 +37,21 @@
             <asp:ListItem Value="3">Win</asp:ListItem>
         </asp:DropDownList>
         <br />
-        <br />
         Quantity<br />
         <asp:TextBox ID="quantityTextBox" runat="server"></asp:TextBox>
         <br />
         <br />
+        <asp:Button ID="verifyOrderButton" runat="server" OnClick="verifyOrderButton_Click" Text="Verify Order" />
         <br />
         <br />
+        <asp:Label ID="verifyLabel" runat="server"></asp:Label>
         <br />
         <br />
-        <asp:Button ID="okButton" runat="server" OnClick="Button1_Click" Text="DoShit" />
+        <asp:Button ID="submitOrderButton" runat="server" OnClick="Button1_Click" Text="Submit Order" />
         <br />
         <br />
-        <asp:Label ID="resultLabel" runat="server"></asp:Label>
+        Ordered Devices:<br />
+        <asp:Label ID="orderedLabel" runat="server"></asp:Label>
         <br />
         <br />
         <br />

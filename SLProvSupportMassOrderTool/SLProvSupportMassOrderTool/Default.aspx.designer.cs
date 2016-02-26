@@ -58,21 +58,39 @@ namespace SLProvSupportMassOrderTool {
         protected global::System.Web.UI.WebControls.TextBox quantityTextBox;
         
         /// <summary>
-        /// okButton control.
+        /// verifyOrderButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button okButton;
+        protected global::System.Web.UI.WebControls.Button verifyOrderButton;
         
         /// <summary>
-        /// resultLabel control.
+        /// verifyLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label resultLabel;
+        protected global::System.Web.UI.WebControls.Label verifyLabel;
+        
+        /// <summary>
+        /// submitOrderButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button submitOrderButton;
+        
+        /// <summary>
+        /// orderedLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label orderedLabel;
     }
 }
