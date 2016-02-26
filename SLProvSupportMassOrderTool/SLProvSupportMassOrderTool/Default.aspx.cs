@@ -1,4 +1,25 @@
-﻿using System;
+﻿/*
+SoftLayer Mass Order Tool
+uses web reference https://api.softlayer.com/soap/v3/SoftLayer_Product_Order?wsdl
+
+This was written for the provisioning support group to efficiently and easily drop large orders to stress test provisioning systems
+it allows for the choice of preset config, datacenter, operating system, and quantity of servers to provision
+builds an order template of type SoftLayer_Container_Product_Order_Hardware_Server to send to orderService.*
+it will allow for successive submissions with the hostname indexing appropriately
+hostnames are of standard format PST[DC][OS][index]
+
+Considerations:
+currently server quantity is confirmed by checking hostnames
+order verification and submission is not yet implemented.  it is commented out until proper api pulls are athorized by softlayer account
+order items, or billing items, are not properly defined in getconfig preconfigs.  This information needs to come from someone in house to help.
+
+
+Valuable References: 
+softlayer/orderBareMetalInstance.cs     https://gist.github.com/softlayer/570676/02b391441f0388d89c8dc4dea1243e6e3c923241
+SLDN|Reference                          http://sldn.softlayer.com/reference/services/SoftLayer_Product_Order
+Basic introductory training from EpicU  http://www.epicu.org/
+*/
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,12 +36,13 @@ namespace SLProvSupportMassOrderTool
         SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = new SoftLayer_Container_Product_Order_Hardware_Server();
         String username = "";
         String apiKey = "";
-        
+        int hostNameIndex = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!Page.IsPostBack)
             {
                 ViewState.Add("hostNameIndex", 0);
+                
             }
                 
         }
@@ -38,7 +60,7 @@ namespace SLProvSupportMassOrderTool
             if (submitOrder(orderTemplate))
             {
                 appendOrderedLabel(orderTemplate);
-                ViewState["hostNameIndex"] = orderTemplate.hardware.Length;
+                ViewState["hostNameIndex"] = hostNameIndex;
 
             }
 
@@ -49,7 +71,7 @@ namespace SLProvSupportMassOrderTool
             string hostname = "PST" + locationDropDown.SelectedItem.Text + osDropDown.SelectedItem.Text;                       //creates the hostname string with pst[location][os][index]
             string domain = "testdomain.com";                                                                                  //setting this to testdomain for now since it's been the standard                                                                     
             int quantity = 0;
-            int hostNameIndex = int.Parse(ViewState["hostNameIndex"].ToString());
+            hostNameIndex = int.Parse(ViewState["hostNameIndex"].ToString());
             
             //checking for realistic order amounts and setting quantity
             if (int.Parse(quantityTextBox.Text) >= 1 && int.Parse(quantityTextBox.Text) <= 50 && quantityTextBox.Text != "")
@@ -82,7 +104,6 @@ namespace SLProvSupportMassOrderTool
                 orderTemplate.hardware[i].domain = domain;                                      //sets domain to provided domain
                 hostNameIndex++;
             }
-            //ViewState["hostNameIndex"] = hostNameIndex;
 
             // Convert our array of orderItems ids into SoftLayer_Product_Item_Price objects
             List<SoftLayer_Product_Item_Price> orderPrices = new List<SoftLayer_Product_Item_Price>();   //creating a list of product item prices based on our orderItems
@@ -96,6 +117,7 @@ namespace SLProvSupportMassOrderTool
             orderTemplate.prices = orderPrices.ToArray();
             return orderTemplate;
         }
+
 
         //this is going to take the selected value of the configuration selection and spit back a config.  
         private int[] GetConfig(int selection)
