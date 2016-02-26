@@ -14,10 +14,13 @@ namespace SLProvSupportMassOrderTool
 
         String username = "";
         String apiKey = "";
-        int hostNameIndex;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if(!Page.IsPostBack)
+            {
+                ViewState.Add("hostNameIndex", 0);
+            }
                 
         }
 
@@ -27,7 +30,7 @@ namespace SLProvSupportMassOrderTool
             string hostname = "PST" + locationDropDown.SelectedItem.Text + osDropDown.SelectedItem.Text;                       //creates the hostname string with pst[location][os][index]
             string domain = "testdomain.com";                                                        //setting this to testdomain for now since it's been the standard                                                                     
             int quantity = 0;
-            
+            int hostNameIndex = int.Parse(ViewState["hostNameIndex"].ToString());
             //checking for realistic order amounts and setting quantity
             if (int.Parse(quantityTextBox.Text) >= 1 && int.Parse(quantityTextBox.Text) <= 50 && quantityTextBox.Text != "")
                 quantity = int.Parse(quantityTextBox.Text);
@@ -63,14 +66,14 @@ namespace SLProvSupportMassOrderTool
                 orderTemplate.hardware[i].domain = domain;                                   //sets domain to provided domain
                 hostNameIndex++;
             }
-
+            ViewState["hostNameIndex"] = hostNameIndex;
 
             //display the stuff.  bye!
             for (int i = 0; i < quantity; i++)
                 resultLabel.Text += orderTemplate.hardware[i].hostname + "." + orderTemplate.hardware[i].domain +"<br />";
 
 
-
+            
 
 
 
