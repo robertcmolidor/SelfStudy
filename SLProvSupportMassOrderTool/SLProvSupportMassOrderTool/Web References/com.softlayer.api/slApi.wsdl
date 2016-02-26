@@ -1,0 +1,729 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://api.service.softlayer.com/soap/v3/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="slApi" targetNamespace="http://api.service.softlayer.com/soap/v3/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://api.service.softlayer.com/soap/v3/">
+      <xsd:include schemaLocation="https://api.softlayer.com/soap/v3/SoftLayer_Product_Order?xsd" namespace="http://api.service.softlayer.com/soap/v3/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="checkItemAvailability">
+    <wsdl:part name="itemPrices" type="tns:SoftLayer_Product_Item_PriceArray" />
+    <wsdl:part name="accountId" type="xsd:int" />
+    <wsdl:part name="availabilityTypeKeyNames" type="tns:ArrayOfstring" />
+  </wsdl:message>
+  <wsdl:message name="checkItemAvailabilityResponse">
+    <wsdl:part name="checkItemAvailabilityReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="checkItemAvailabilityForImageTemplate">
+    <wsdl:part name="imageTemplateId" type="xsd:int" />
+    <wsdl:part name="accountId" type="xsd:int" />
+    <wsdl:part name="packageId" type="xsd:int" />
+    <wsdl:part name="availabilityTypeKeyNames" type="tns:ArrayOfstring" />
+  </wsdl:message>
+  <wsdl:message name="checkItemAvailabilityForImageTemplateResponse">
+    <wsdl:part name="checkItemAvailabilityForImageTemplateReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="checkItemConflicts">
+    <wsdl:part name="itemPrices" type="tns:SoftLayer_Product_Item_PriceArray" />
+  </wsdl:message>
+  <wsdl:message name="checkItemConflictsResponse">
+    <wsdl:part name="checkItemConflictsReturn" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="getExternalPaymentAuthorizationReceipt">
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="payerId" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getExternalPaymentAuthorizationReceiptResponse">
+    <wsdl:part name="getExternalPaymentAuthorizationReceiptReturn" type="tns:SoftLayer_Container_Product_Order_Receipt" />
+  </wsdl:message>
+  <wsdl:message name="getNetworks">
+    <wsdl:part name="locationId" type="xsd:int" />
+    <wsdl:part name="packageId" type="xsd:int" />
+    <wsdl:part name="accountId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getNetworksResponse">
+    <wsdl:part name="getNetworksReturn" type="tns:SoftLayer_Container_Product_Order_NetworkArray" />
+  </wsdl:message>
+  <wsdl:message name="getResellerOrder">
+    <wsdl:part name="orderContainer" type="tns:SoftLayer_Container_Product_Order" />
+  </wsdl:message>
+  <wsdl:message name="getResellerOrderResponse">
+    <wsdl:part name="getResellerOrderReturn" type="tns:SoftLayer_Container_Product_Order" />
+  </wsdl:message>
+  <wsdl:message name="getTaxCalculationResult">
+    <wsdl:part name="orderHash" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getTaxCalculationResultResponse">
+    <wsdl:part name="getTaxCalculationResultReturn" type="tns:SoftLayer_Container_Tax_Cache" />
+  </wsdl:message>
+  <wsdl:message name="getVlans">
+    <wsdl:part name="locationId" type="xsd:int" />
+    <wsdl:part name="packageId" type="xsd:int" />
+    <wsdl:part name="selectedItems" type="xsd:string" />
+    <wsdl:part name="vlanIds" type="tns:ArrayOfint" />
+    <wsdl:part name="subnetIds" type="tns:ArrayOfint" />
+    <wsdl:part name="accountId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getVlansResponse">
+    <wsdl:part name="getVlansReturn" type="tns:SoftLayer_Container_Product_Order_Network_Vlans" />
+  </wsdl:message>
+  <wsdl:message name="placeOrder">
+    <wsdl:part name="orderData" type="tns:SoftLayer_Container_Product_Order" />
+    <wsdl:part name="saveAsQuote" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="placeOrderResponse">
+    <wsdl:part name="placeOrderReturn" type="tns:SoftLayer_Container_Product_Order_Receipt" />
+  </wsdl:message>
+  <wsdl:message name="placeQuote">
+    <wsdl:part name="orderData" type="tns:SoftLayer_Container_Product_Order" />
+  </wsdl:message>
+  <wsdl:message name="placeQuoteResponse">
+    <wsdl:part name="placeQuoteReturn" type="tns:SoftLayer_Container_Product_Order_Receipt" />
+  </wsdl:message>
+  <wsdl:message name="processExternalPaymentAuthorization">
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="payerId" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="processExternalPaymentAuthorizationResponse">
+    <wsdl:part name="processExternalPaymentAuthorizationReturn" type="tns:SoftLayer_Container_Product_Order" />
+  </wsdl:message>
+  <wsdl:message name="requiredItems">
+    <wsdl:part name="itemPrices" type="tns:SoftLayer_Product_Item_PriceArray" />
+  </wsdl:message>
+  <wsdl:message name="requiredItemsResponse">
+    <wsdl:part name="requiredItemsReturn" type="tns:SoftLayer_Product_ItemArray" />
+  </wsdl:message>
+  <wsdl:message name="verifyOrder">
+    <wsdl:part name="orderData" type="tns:SoftLayer_Container_Product_Order" />
+  </wsdl:message>
+  <wsdl:message name="verifyOrderResponse">
+    <wsdl:part name="verifyOrderReturn" type="tns:SoftLayer_Container_Product_Order" />
+  </wsdl:message>
+  <wsdl:message name="authenticateHeader">
+    <wsdl:part name="authenticate" type="tns:authenticate" />
+  </wsdl:message>
+  <wsdl:message name="SoftLayer_ObjectMaskHeader">
+    <wsdl:part name="SoftLayer_ObjectMask" type="tns:SoftLayer_ObjectMask" />
+  </wsdl:message>
+  <wsdl:portType name="SoftLayer_Product_OrderPortType">
+    <documentation>All orders (servers, virtual servers and services) pass through the [[SoftLayer_Product_Order]] service. This service provides the entry point for placing orders and quotes with SoftLayer. To place orders using these services, you must provide the appropriate container type as defined by [[SoftLayer_Container_Product_Order]]. For server orders, you would use [[SoftLayer_Container_Product_Order_Hardware_Server]]. For virtual server orders, you would use [[SoftLayer_Container_Product_Order_Virtual_Guest]]. For additional service orders, it will depend on the additional service (e.g., network attached storage, object storage, global load balancer) being purchased. See the data types documentation to get a list of all the available container types beginning with &amp;lt;code&amp;gt;SoftLayer_Container_Product_Order_*&amp;lt;/code&amp;gt;. 
+
+There are several main entry points associated with ordering: 
+
+&amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;[[SoftLayer_Product_Order/placeOrder|placeOrder]] - Order servers and services. Your credit card or PayPal account will get charged when successfully placed.&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;[[SoftLayer_Product_Order/verifyOrder|verifyOrder]] - Run verification on your order before it's actually placed to get additional information, like your total monthly or hourly recurring charges. You may also call this service to help ensure that your call to [[SoftLayer_Product_Order/placeOrder|placeOrder]] will succeed. &amp;lt;strong&amp;gt;This service is called internally, so it is not required to verify before you call &amp;lt;code&amp;gt;placeOrder&amp;lt;/code&amp;gt;.&amp;lt;/strong&amp;gt; No credit card or PayPal charges result from this call.&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;[[SoftLayer_Product_Order/placeQuote|placeQuote]] - Create a quote only. Subsequent orders may be placed from this quote. See [[SoftLayer_Billing_Order_Quote/placeOrder]] for details on how to order from a quote.&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;[[SoftLayer_Product_Order/getVlans|getVlans]] - Get a list of available VLANs that can be supplied when placing an order.&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; 
+
+While this service provides detailed customization for ordering, some customers may find the simplified ordering system sufficient for their needs. For more information, see the following: 
+
+&amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;[[SoftLayer_Virtual_Guest/createObject]] - Simplified virtual server ordering&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;[[SoftLayer_Hardware/createObject]] - Simplified bare metal server ordering&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; </documentation>
+    <wsdl:operation name="checkItemAvailability">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:checkItemAvailability" />
+      <wsdl:output message="tns:checkItemAvailabilityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="checkItemAvailabilityForImageTemplate">
+      <documentation>
+      </documentation>
+      <wsdl:input message="tns:checkItemAvailabilityForImageTemplate" />
+      <wsdl:output message="tns:checkItemAvailabilityForImageTemplateResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="checkItemConflicts">
+      <documentation>Check order items for conflicts</documentation>
+      <wsdl:input message="tns:checkItemConflicts" />
+      <wsdl:output message="tns:checkItemConflictsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getExternalPaymentAuthorizationReceipt">
+      <documentation>This method simply returns a receipt for a previously finalized payment authorization from PayPal. The response matches the response returned from placeOrder when the order was originally placed with PayPal as the payment type. </documentation>
+      <wsdl:input message="tns:getExternalPaymentAuthorizationReceipt" />
+      <wsdl:output message="tns:getExternalPaymentAuthorizationReceiptResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getNetworks">
+      <documentation>This method returns a collection of [[SoftLayer_Container_Product_Order_Network]] objects. This will contain the available networks that can be used when ordering services. 
+
+If a location id is supplied, the list of networks will be trimmed down to only those that are available at that particular datacenter. 
+
+If a package id is supplied, the list of public VLANs and subnets will be trimmed down to those that are available for that particular package. 
+
+The account id is for internal use only and will be ignored when supplied by customers. </documentation>
+      <wsdl:input message="tns:getNetworks" />
+      <wsdl:output message="tns:getNetworksResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getResellerOrder">
+      <documentation>When the account is on an external reseller brand, this service will provide a SoftLayer_Product_Order with the the pricing adjusted by the external reseller. </documentation>
+      <wsdl:input message="tns:getResellerOrder" />
+      <wsdl:output message="tns:getResellerOrderResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTaxCalculationResult">
+      <documentation>Sometimes taxes cannot be calculated immediately, so we start the calculations and let them run in the background. This method will return the current progress and information related to a specific tax calculation, which allows real-time progress updates on tax calculations. </documentation>
+      <wsdl:input message="tns:getTaxCalculationResult" />
+      <wsdl:output message="tns:getTaxCalculationResultResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getVlans">
+      <documentation>Return collections of public and private VLANs that are available during ordering. If a location ID is provided, the resulting VLANs will be limited to that location. If the Virtual Server package id (46) is provided, the VLANs will be narrowed down to those locations that contain routers with the VIRTUAL_IMAGE_STORE data attribute. 
+
+For the selectedItems parameter, this is a comma-separated string of category codes and item values. For example: 
+
+&amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;&amp;lt;code&amp;gt;port_speed=10,guest_disk0=LOCAL_DISK&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;code&amp;gt;port_speed=100,disk0=SAN_DISK&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;code&amp;gt;port_speed=100,private_network_only=1,guest_disk0=LOCAL_DISK&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; 
+
+This parameter is used to narrow the available results down even further. It's not necessary when selecting a VLAN, but it will help avoid errors when attempting to place an order. The only acceptable category codes are: 
+
+&amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;&amp;lt;code&amp;gt;port_speed&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;A disk category, such as &amp;lt;code&amp;gt;guest_disk0&amp;lt;/code&amp;gt; or &amp;lt;code&amp;gt;disk0&amp;lt;/code&amp;gt;, with values of either &amp;lt;code&amp;gt;LOCAL_DISK&amp;lt;/code&amp;gt; or &amp;lt;code&amp;gt;SAN_DISK&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;code&amp;gt;private_network_only&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;code&amp;gt;dual_path_network&amp;lt;/code&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; 
+
+For most customers, it's sufficient to only provide the first 2 parameters. </documentation>
+      <wsdl:input message="tns:getVlans" />
+      <wsdl:output message="tns:getVlansResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="placeOrder">
+      <documentation>
+Use this method to place bare metal server, virtual server and additional service orders with SoftLayer. Upon success, your credit card or PayPal account will incur charges for the monthly order total (or prorated value if ordered mid billing cycle). If all products on the order are only billed hourly, you will be charged on your billing anniversary date, which occurs monthly on the day you ordered your first service with SoftLayer. For new customers, you are required to provide billing information when you place an order. For existing customers, the credit card on file will be charged. If you're a PayPal customer, a URL will be returned from the call to [[SoftLayer_Product_Order/placeOrder|placeOrder]] which is to be used to finish the authorization process. This authorization tells PayPal that you indeed want to place an order with SoftLayer. From PayPal's web site, you will be redirected back to SoftLayer for your order receipt.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+When an order is placed, your order will be in a &amp;quot;pending approval&amp;quot; state. When all internal checks pass, your order will be automatically approved. For orders that may need extra attention, a Sales representative will review the order and contact you if necessary. Once the order is approved, your server or service will be provisioned and available to you shortly thereafter. Depending on the type of server or service ordered, provisioning times will vary.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;h2&amp;gt;Order Containers&amp;lt;/h2&amp;gt; 
+
+
+When placing API orders, it's important to order your server and services on the appropriate [[SoftLayer_Container_Product_Order (type)|order container]]. Failing to provide the correct container may delay your server or service from being provisioned in a timely manner. Some common order containers are included below.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;strong&amp;gt;Note:&amp;lt;/strong&amp;gt; &amp;lt;code&amp;gt;SoftLayer_Container_Product_Order_&amp;lt;/code&amp;gt; has been removed from the containers in the table below for readability.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;table style=&amp;quot;word-wrap:break-word;&amp;quot;&amp;gt; 
+  &amp;lt;tr style=&amp;quot;text-align:left;&amp;quot;&amp;gt; 
+    &amp;lt;th&amp;gt;Product&amp;lt;/th&amp;gt; 
+    &amp;lt;th&amp;gt;Order container&amp;lt;/th&amp;gt; 
+    &amp;lt;th&amp;gt;Package type&amp;lt;/th&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Bare metal server by CPU&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Hardware_Server (type)|Hardware_Server]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;BARE_METAL_CPU&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Bare metal server by core&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Hardware_Server (type)|Hardware_Server]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;BARE_METAL_CORE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Virtual server&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Virtual_Guest (type)|Virtual_Guest]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;VIRTUAL_SERVER_INSTANCE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;DNS domain registration&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Dns_Domain_Registration (type)|Dns_Domain_Registration]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Local &amp;amp; dedicated load balancers&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_LoadBalancer (type)|Network_LoadBalancer]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_LOAD_BALANCER&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Content delivery network&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_ContentDelivery_Account (type)|Network_ContentDelivery_Account]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_CDN&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Message queue&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Message_Queue (type)|Network_Message_Queue]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_MESSAGE_QUEUE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Hardware &amp;amp; software firewalls&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Protection_Firewall (type)|Network_Protection_Firewall]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Dedicated firewall&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Protection_Firewall_Dedicated (type)|Network_Protection_Firewall_Dedicated]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Object storage&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Storage_Hub (type)|Network_Storage_Hub]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_OBJECT_STORAGE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Network attached storage&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Storage_Nas (type)|Network_Storage_Nas]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_NETWORK_ATTACHED_STORAGE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Iscsi storage&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Storage_Iscsi (type)|Network_Storage_Iscsi]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_ISCSI_STORAGE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Evault&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Storage_Backup_Evault_Vault (type)|Network_Storage_Backup_Evault_Vault]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Evault Plugin&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Storage_Backup_Evault_Plugin (type)|Network_Storage_Backup_Evault_Plugin]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Application delivery appliance&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Application_Delivery_Controller (type)|Network_Application_Delivery_Controller]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_APPLICATION_DELIVERY_APPLIANCE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Network subnet&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Subnet (type)|Network_Subnet]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Network VLAN&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Network_Vlan (type)|Network_Vlan]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;Portable storage&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Virtual_Disk_Image (type)|Virtual_Disk_Image]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_PORTABLE_STORAGE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;SSL certificate&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_Security_Certificate (type)|Security_Certificate]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES_SSL_CERTIFICATE&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+  &amp;lt;tr&amp;gt; 
+    &amp;lt;td&amp;gt;External authentication&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;[[SoftLayer_Container_Product_Order_User_Customer_External_Binding (type)|User_Customer_External_Binding]]&amp;lt;/td&amp;gt; 
+    &amp;lt;td&amp;gt;ADDITIONAL_SERVICES&amp;lt;/td&amp;gt; 
+  &amp;lt;/tr&amp;gt; 
+&amp;lt;/table&amp;gt; 
+
+
+&amp;lt;h2&amp;gt;Server example&amp;lt;/h2&amp;gt; 
+
+
+This example includes a single bare metal server being ordered with monthly billing.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;strong&amp;gt;Warning:&amp;lt;/strong&amp;gt; the price ids provided below may be outdated or unavailable, so you will need to determine the available prices from the bare metal server [[SoftLayer_Product_Package/getAllObjects|packages]], which have a [[SoftLayer_Product_Package_Type (type)|package type]] of '''BARE_METAL_CPU''' or '''BARE_METAL_CORE'''. You can get a full list of [[SoftLayer_Product_Package_Type/getAllObjects|package types]] to see other potentially available server packages.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;http title=&amp;quot;Bare metal server&amp;quot;&amp;gt; 
+&amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;quot;http://schemas.xmlsoap.org/soap/envelope/&amp;quot; xmlns:ns1=&amp;quot;http://api.service.softlayer.com/soap/v3/&amp;quot; xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns:SOAP-ENC=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot; SOAP-ENV:encodingStyle=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot;&amp;gt; 
+  &amp;lt;SOAP-ENV:Header&amp;gt; 
+    &amp;lt;ns1:authenticate&amp;gt; 
+      &amp;lt;username&amp;gt;your username&amp;lt;/username&amp;gt; 
+      &amp;lt;apiKey&amp;gt;your api key&amp;lt;/apiKey&amp;gt; 
+    &amp;lt;/ns1:authenticate&amp;gt; 
+  &amp;lt;/SOAP-ENV:Header&amp;gt; 
+  &amp;lt;SOAP-ENV:Body&amp;gt; 
+    &amp;lt;ns1:placeOrder&amp;gt; 
+      &amp;lt;orderData xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order_Hardware_Server&amp;quot;&amp;gt; 
+        &amp;lt;hardware SOAP-ENC:arrayType=&amp;quot;ns1:SoftLayer_Hardware[1]&amp;quot; xsi:type=&amp;quot;ns1:SoftLayer_HardwareArray&amp;quot;&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Hardware&amp;quot;&amp;gt; 
+            &amp;lt;domain xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;example.com&amp;lt;/domain&amp;gt; 
+            &amp;lt;hostname xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;server1&amp;lt;/hostname&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+        &amp;lt;/hardware&amp;gt; 
+        &amp;lt;location xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;138124&amp;lt;/location&amp;gt; 
+        &amp;lt;packageId xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;142&amp;lt;/packageId&amp;gt; 
+        &amp;lt;prices SOAP-ENC:arrayType=&amp;quot;ns1:SoftLayer_Product_Item_Price[14]&amp;quot; xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_PriceArray&amp;quot;&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;58&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;22337&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;21189&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;876&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;57&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;55&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;21190&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;36381&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;21&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;22013&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;906&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;420&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;418&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;342&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+        &amp;lt;/prices&amp;gt; 
+        &amp;lt;useHourlyPricing xsi:type=&amp;quot;xsd:boolean&amp;quot;&amp;gt;false&amp;lt;/useHourlyPricing&amp;gt; 
+      &amp;lt;/orderData&amp;gt; 
+      &amp;lt;saveAsQuote xsi:nil=&amp;quot;true&amp;quot; /&amp;gt; 
+    &amp;lt;/ns1:placeOrder&amp;gt; 
+  &amp;lt;/SOAP-ENV:Body&amp;gt; 
+&amp;lt;/SOAP-ENV:Envelope&amp;gt; 
+&amp;lt;/http&amp;gt;&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;h2&amp;gt;Virtual server example&amp;lt;/h2&amp;gt; 
+
+
+This example includes 2 identical virtual servers (except for hostname) being ordered for hourly billing. It includes an optional image template id and VLAN data specified on the virtualGuest objects - &amp;lt;code&amp;gt;primaryBackendNetworkComponent&amp;lt;/code&amp;gt; and &amp;lt;code&amp;gt;primaryNetworkComponent&amp;lt;/code&amp;gt;.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;strong&amp;gt;Warning:&amp;lt;/strong&amp;gt; the price ids provided below may be outdated or unavailable, so you will need to determine the available prices from the virtual server [[SoftLayer_Product_Package/getAllObjects|package]], which has a [[SoftLayer_Product_Package_Type (type)|package type]] of '''VIRTUAL_SERVER_INSTANCE'''.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;http title=&amp;quot;Virtual server&amp;quot;&amp;gt; 
+&amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;quot;http://schemas.xmlsoap.org/soap/envelope/&amp;quot; xmlns:ns1=&amp;quot;http://api.service.softlayer.com/soap/v3/&amp;quot; xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns:SOAP-ENC=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot; SOAP-ENV:encodingStyle=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot;&amp;gt; 
+  &amp;lt;SOAP-ENV:Header&amp;gt; 
+    &amp;lt;ns1:authenticate&amp;gt; 
+      &amp;lt;username&amp;gt;your username&amp;lt;/username&amp;gt; 
+      &amp;lt;apiKey&amp;gt;your api key&amp;lt;/apiKey&amp;gt; 
+    &amp;lt;/ns1:authenticate&amp;gt; 
+  &amp;lt;/SOAP-ENV:Header&amp;gt; 
+  &amp;lt;SOAP-ENV:Body&amp;gt; 
+    &amp;lt;ns1:placeOrder&amp;gt; 
+      &amp;lt;orderData xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order_Virtual_Guest&amp;quot;&amp;gt; 
+        &amp;lt;imageTemplateId xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;13251&amp;lt;/imageTemplateId&amp;gt; 
+        &amp;lt;location xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;37473&amp;lt;/location&amp;gt; 
+        &amp;lt;packageId xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;46&amp;lt;/packageId&amp;gt; 
+        &amp;lt;prices SOAP-ENC:arrayType=&amp;quot;ns1:SoftLayer_Product_Item_Price[13]&amp;quot; xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_PriceArray&amp;quot;&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;2159&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;55&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;13754&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;1641&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;905&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;1800&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;58&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;21&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;1645&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;272&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;57&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;418&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;420&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+        &amp;lt;/prices&amp;gt; 
+        &amp;lt;quantity xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;2&amp;lt;/quantity&amp;gt; 
+        &amp;lt;useHourlyPricing xsi:type=&amp;quot;xsd:boolean&amp;quot;&amp;gt;true&amp;lt;/useHourlyPricing&amp;gt; 
+        &amp;lt;virtualGuests SOAP-ENC:arrayType=&amp;quot;ns1:SoftLayer_Virtual_Guest[1]&amp;quot; xsi:type=&amp;quot;ns1:SoftLayer_Virtual_GuestArray&amp;quot;&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Virtual_Guest&amp;quot;&amp;gt; 
+            &amp;lt;domain xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;example.com&amp;lt;/domain&amp;gt; 
+            &amp;lt;hostname xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;server1&amp;lt;/hostname&amp;gt; 
+            &amp;lt;primaryBackendNetworkComponent xsi:type=&amp;quot;ns1:SoftLayer_Virtual_Guest_Network_Component&amp;quot;&amp;gt; 
+              &amp;lt;networkVlan xsi:type=&amp;quot;ns1:SoftLayer_Network_Vlan&amp;quot;&amp;gt; 
+                &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;12345&amp;lt;/id&amp;gt; 
+              &amp;lt;/networkVlan&amp;gt; 
+            &amp;lt;/primaryBackendNetworkComponent&amp;gt; 
+            &amp;lt;primaryNetworkComponent xsi:type=&amp;quot;ns1:SoftLayer_Virtual_Guest_Network_Component&amp;quot;&amp;gt; 
+              &amp;lt;networkVlan xsi:type=&amp;quot;ns1:SoftLayer_Network_Vlan&amp;quot;&amp;gt; 
+                &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;67890&amp;lt;/id&amp;gt; 
+              &amp;lt;/networkVlan&amp;gt; 
+            &amp;lt;/primaryNetworkComponent&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Virtual_Guest&amp;quot;&amp;gt; 
+            &amp;lt;domain xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;example.com&amp;lt;/domain&amp;gt; 
+            &amp;lt;hostname xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;server2&amp;lt;/hostname&amp;gt; 
+            &amp;lt;primaryBackendNetworkComponent xsi:type=&amp;quot;ns1:SoftLayer_Virtual_Guest_Network_Component&amp;quot;&amp;gt; 
+              &amp;lt;networkVlan xsi:type=&amp;quot;ns1:SoftLayer_Network_Vlan&amp;quot;&amp;gt; 
+                &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;12345&amp;lt;/id&amp;gt; 
+              &amp;lt;/networkVlan&amp;gt; 
+            &amp;lt;/primaryBackendNetworkComponent&amp;gt; 
+            &amp;lt;primaryNetworkComponent xsi:type=&amp;quot;ns1:SoftLayer_Virtual_Guest_Network_Component&amp;quot;&amp;gt; 
+              &amp;lt;networkVlan xsi:type=&amp;quot;ns1:SoftLayer_Network_Vlan&amp;quot;&amp;gt; 
+                &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;67890&amp;lt;/id&amp;gt; 
+              &amp;lt;/networkVlan&amp;gt; 
+            &amp;lt;/primaryNetworkComponent&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+        &amp;lt;/virtualGuests&amp;gt; 
+      &amp;lt;/orderData&amp;gt; 
+      &amp;lt;saveAsQuote xsi:nil=&amp;quot;true&amp;quot; /&amp;gt; 
+    &amp;lt;/ns1:placeOrder&amp;gt; 
+  &amp;lt;/SOAP-ENV:Body&amp;gt; 
+&amp;lt;/SOAP-ENV:Envelope&amp;gt; 
+&amp;lt;/http&amp;gt;&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;h2&amp;gt;VLAN example&amp;lt;/h2&amp;gt; 
+
+
+&amp;lt;strong&amp;gt;Warning:&amp;lt;/strong&amp;gt; the price ids provided below may be outdated or unavailable, so you will need to determine the available prices from the additional services [[SoftLayer_Product_Package/getAllObjects|package]], which has a [[SoftLayer_Product_Package_Type (type)|package type]] of '''ADDITIONAL_SERVICES'''. You can get a full list of [[SoftLayer_Product_Package_Type/getAllObjects|package types]] to find other available additional service packages.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;http title=&amp;quot;VLAN&amp;quot;&amp;gt; 
+&amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;quot;http://schemas.xmlsoap.org/soap/envelope/&amp;quot; xmlns:ns1=&amp;quot;http://api.service.softlayer.com/soap/v3/&amp;quot; xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns:SOAP-ENC=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot; SOAP-ENV:encodingStyle=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot;&amp;gt; 
+  &amp;lt;SOAP-ENV:Header&amp;gt; 
+    &amp;lt;ns1:authenticate&amp;gt; 
+      &amp;lt;username&amp;gt;your username&amp;lt;/username&amp;gt; 
+      &amp;lt;apiKey&amp;gt;your api key&amp;lt;/apiKey&amp;gt; 
+    &amp;lt;/ns1:authenticate&amp;gt; 
+  &amp;lt;/SOAP-ENV:Header&amp;gt; 
+  &amp;lt;SOAP-ENV:Body&amp;gt; 
+    &amp;lt;ns1:placeOrder&amp;gt; 
+      &amp;lt;orderData xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order_Network_Vlan&amp;quot;&amp;gt; 
+        &amp;lt;location xsi:type=&amp;quot;xsd:string&amp;quot;&amp;gt;154820&amp;lt;/location&amp;gt; 
+        &amp;lt;packageId xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;0&amp;lt;/packageId&amp;gt; 
+        &amp;lt;prices SOAP-ENC:arrayType=&amp;quot;ns1:SoftLayer_Product_Item_Price[2]&amp;quot; xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_PriceArray&amp;quot;&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;2021&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Product_Item_Price&amp;quot;&amp;gt; 
+            &amp;lt;id xsi:type=&amp;quot;xsd:int&amp;quot;&amp;gt;2018&amp;lt;/id&amp;gt; 
+          &amp;lt;/item&amp;gt; 
+        &amp;lt;/prices&amp;gt; 
+        &amp;lt;useHourlyPricing xsi:type=&amp;quot;xsd:boolean&amp;quot;&amp;gt;true&amp;lt;/useHourlyPricing&amp;gt; 
+      &amp;lt;/orderData&amp;gt; 
+      &amp;lt;saveAsQuote xsi:nil=&amp;quot;true&amp;quot; /&amp;gt; 
+    &amp;lt;/ns1:placeOrder&amp;gt; 
+  &amp;lt;/SOAP-ENV:Body&amp;gt; 
+&amp;lt;/SOAP-ENV:Envelope&amp;gt; 
+&amp;lt;/http&amp;gt;&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;h2&amp;gt;Multiple products example&amp;lt;/h2&amp;gt; 
+
+
+This example includes a combination of the above examples in a single order. Note that all the configuration options for each individual order container are the same as above, except now we encapsulate each one within the &amp;lt;code&amp;gt;orderContainers&amp;lt;/code&amp;gt; property on the base [[SoftLayer_Container_Product_Order (type)|order container]].&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;strong&amp;gt;Warning:&amp;lt;/strong&amp;gt; not all products are available to be ordered with other products. For example, since SSL certificates require validation from a 3rd party, the approval process may take days or even weeks, and this would not be acceptable when you need your hourly virtual server right now. To better accommodate customers, we restrict several products to be ordered individually.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+
+&amp;lt;http title=&amp;quot;Bare metal server + virtual server + VLAN&amp;quot;&amp;gt; 
+&amp;lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&amp;quot;http://schemas.xmlsoap.org/soap/envelope/&amp;quot; xmlns:ns1=&amp;quot;http://api.service.softlayer.com/soap/v3/&amp;quot; xmlns:xsd=&amp;quot;http://www.w3.org/2001/XMLSchema&amp;quot; xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot; xmlns:SOAP-ENC=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot; SOAP-ENV:encodingStyle=&amp;quot;http://schemas.xmlsoap.org/soap/encoding/&amp;quot;&amp;gt; 
+  &amp;lt;SOAP-ENV:Header&amp;gt; 
+    &amp;lt;ns1:authenticate&amp;gt; 
+      &amp;lt;username&amp;gt;your username&amp;lt;/username&amp;gt; 
+      &amp;lt;apiKey&amp;gt;your api key&amp;lt;/apiKey&amp;gt; 
+    &amp;lt;/ns1:authenticate&amp;gt; 
+  &amp;lt;/SOAP-ENV:Header&amp;gt; 
+  &amp;lt;SOAP-ENV:Body&amp;gt; 
+    &amp;lt;ns1:placeOrder&amp;gt; 
+      &amp;lt;orderData xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order&amp;quot;&amp;gt; 
+        &amp;lt;orderContainers SOAP-ENC:arrayType=&amp;quot;ns1:SoftLayer_Container_Product_Order[3]&amp;quot; xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_OrderArray&amp;quot;&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order_Hardware_Server&amp;quot;&amp;gt; 
+            ... 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order_Virtual_Guest&amp;quot;&amp;gt; 
+            ... 
+          &amp;lt;/item&amp;gt; 
+          &amp;lt;item xsi:type=&amp;quot;ns1:SoftLayer_Container_Product_Order_Network_Vlan&amp;quot;&amp;gt; 
+            ... 
+          &amp;lt;/item&amp;gt; 
+        &amp;lt;/orderContainers&amp;gt; 
+      &amp;lt;/orderData&amp;gt; 
+      &amp;lt;saveAsQuote xsi:nil=&amp;quot;true&amp;quot; /&amp;gt; 
+    &amp;lt;/ns1:placeOrder&amp;gt; 
+  &amp;lt;/SOAP-ENV:Body&amp;gt; 
+&amp;lt;/SOAP-ENV:Envelope&amp;gt; 
+&amp;lt;/http&amp;gt; 
+
+</documentation>
+      <wsdl:input message="tns:placeOrder" />
+      <wsdl:output message="tns:placeOrderResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="placeQuote">
+      <documentation>Use this method for placing server quotes and additional services quotes. The same applies for this as with verifyOrder. Send in the SoftLayer_Container_Product_Order_Hardware_Server for server quotes. After placing the quote, you must go to this URL to finish the order process. After going to this URL, it will direct you back to a SoftLayer webpage that tells us you have finished the process. After this, it will go to sales for final approval. </documentation>
+      <wsdl:input message="tns:placeQuote" />
+      <wsdl:output message="tns:placeQuoteResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="processExternalPaymentAuthorization">
+      <documentation>This method simply finalizes an authorization from PayPal. It tells SoftLayer that the customer has completed the PayPal process. This is ONLY needed if you, the customer, have your own API into PayPal and wish to automate authorizations from PayPal and our system. For most, this method will not be needed. Once an order is placed using placeOrder() for PayPal customers, a URL is given back to the customer. In it is the token and PayerID. If you want to systematically pay with PayPal, do so then call this method with the token and PayerID. </documentation>
+      <wsdl:input message="tns:processExternalPaymentAuthorization" />
+      <wsdl:output message="tns:processExternalPaymentAuthorizationResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="requiredItems">
+      <documentation>Get list of items that are required with the item prices provided</documentation>
+      <wsdl:input message="tns:requiredItems" />
+      <wsdl:output message="tns:requiredItemsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="verifyOrder">
+      <documentation>This service is used to verify that an order meets all the necessary requirements to purchase a server, virtual server or service from SoftLayer. It will verify that the products requested do not conflict. For example, you cannot order a Windows firewall with a Linux operating system. It will also check to make sure you have provided all the products that are required for the [[SoftLayer_Product_Package_Order_Configuration (type)|package configuration]] associated with the [[SoftLayer_Product_Package|package id]] on each of the [[SoftLayer_Container_Product_Order (type)|order containers]] specified.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+This service returns the same container that was provided, but with additional information that can be used for debugging or validation. It will also contain pricing information (prorated if applicable) for each of the products on the order. If an exception occurs during verification, a container with the &amp;lt;code&amp;gt;SoftLayer_Exception_Order&amp;lt;/code&amp;gt; exception type will be specified in the result.&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt; 
+
+&amp;lt;code&amp;gt;verifyOrder&amp;lt;/code&amp;gt; accepts the same [[SoftLayer_Container_Product_Order (type)|container types]] as &amp;lt;code&amp;gt;placeOrder&amp;lt;/code&amp;gt;, so see [[SoftLayer_Product_Order/placeOrder|placeOrder]] for more details. 
+
+</documentation>
+      <wsdl:input message="tns:verifyOrder" />
+      <wsdl:output message="tns:verifyOrderResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SoftLayer_Product_OrderBinding" type="tns:SoftLayer_Product_OrderPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="checkItemAvailability">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkItemAvailabilityForImageTemplate">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkItemConflicts">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getExternalPaymentAuthorizationReceipt">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNetworks">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getResellerOrder">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTaxCalculationResult">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getVlans">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="placeOrder">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="placeQuote">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="processExternalPaymentAuthorization">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="requiredItems">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="verifyOrder">
+      <soap:operation soapAction="http://api.service.softlayer.com/soap/v3/SoftLayer_Product_OrderAction" />
+      <wsdl:input>
+        <soap:header message="tns:authenticateHeader" part="authenticate" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://api.service.softlayer.com/soap/v3/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SoftLayer_Product_OrderService">
+    <wsdl:port name="SoftLayer_Product_OrderPort" binding="tns:SoftLayer_Product_OrderBinding">
+      <soap:address location="https://api.softlayer.com/soap/v3/SoftLayer_Product_Order" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

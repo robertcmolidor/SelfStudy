@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SLProvSupportMassOrderTool.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SLProvSupportMassOrderTool_com_softlayer_api_SoftLayer_Product_OrderService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://api.softlayer.com/soap/v3/SoftLayer_Product_Order</Value>
+    </Setting>
+    <Setting Name="SLProvSupportMassOrderTool_com_softlayer_api1_SoftLayer_AccountService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://api.softlayer.com/soap/v3/SoftLayer_Account</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
