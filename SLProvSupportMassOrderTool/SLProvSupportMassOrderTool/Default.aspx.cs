@@ -48,6 +48,7 @@ namespace SLProvSupportMassOrderTool
         }
         protected void verifyOrderButton_Click(object sender, EventArgs e)
         {
+            
             SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();  //creates new order template and sets it to the values returned by build template
             try
             {
@@ -60,7 +61,9 @@ namespace SLProvSupportMassOrderTool
             {
                 setVerifyLabel("ERROR: Order did not pass verification" + ex.Message);
             }
-                
+            
+          
+
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -163,7 +166,23 @@ namespace SLProvSupportMassOrderTool
                     }
                 case 1:
                     {
-                        int[] orderItems = { };
+                        int[] orderItems = {
+                        
+                        6147, //8gb RAM
+                        43, //SATA controller
+                        60307, //1tb SATA
+                        50357, //500GB throughput
+                        550, //100mbps pub/priv uplinks
+                        275, //100mbps public
+                        277, //100mbps private
+                        906, //remote Management
+                        21, //1 ip address
+                        55, //ping monitor
+                        57, //email and ticket
+                        58, //automated notification
+                        420, //unlimited vpn users
+                        418, //nessus vulnerability and assessment reporting
+                        };
                         return orderItems;
                     }
                 case 2:
@@ -186,7 +205,7 @@ namespace SLProvSupportMassOrderTool
             int[] orderNull = { };
             return orderNull;
         }
-
+        
         private bool verifyOrder(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
         {
 
