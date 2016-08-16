@@ -20,20 +20,11 @@ namespace NetworkStudy
 
             var ipString = "";
 
-            SendUdp(11000, "192.168.2.255", 11000, Encoding.ASCII.GetBytes("Hello!"));
-
             CreateIcmpSocket();
+            SendUdp(11000, "108.59.46.162", 17, Encoding.ASCII.GetBytes("Hello!"));
             while (true) { Thread.Sleep(10); }
 
-
-
-
-
-
-
-
-
-
+            
 
         }
         private static void CreateIcmpSocket()
@@ -45,7 +36,7 @@ namespace NetworkStudy
             // fails on any OS but Windows.
             //if (Environment.OSVersion.Platform == PlatformID.Win32NT)
             //{
-                icmpSocket.IOControl(IOControlCode.ReceiveAll, new byte[] { 1, 0, 0, 0 }, new byte[] { 1, 0, 0, 0 });
+                //icmpSocket.IOControl(IOControlCode.ReceiveAll, new byte[] { 1, 0, 0, 0 }, new byte[] { 1, 0, 0, 0 });
             //}
             BeginReceiveFrom();
         }
