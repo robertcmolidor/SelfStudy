@@ -1,0 +1,59 @@
+﻿@model DisplayProbeResults.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<p>Checked @Model.ProfilesChecked Profiles</p>
+<p>Found @Model.ProfilesNotRun Profiles NOT tested</p>
+<p>@Model.RelevantResults.Count Total Tests Run</p>
+<p>@Model.SuccessfulResults.Count Passed</p>
+<p>@Model.FailedResults.Count Failed</p>
+
+
+
+
+
+
+
+
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Test Type</th>
+            <th>Successes</th>
+            <th>Failures</th>
+            <th>% Pass</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (KeyValuePair<int, int> checkType in Model.CheckTypeSuccesses)
+        {
+            int value;
+            Model.CheckTypeFails.TryGetValue(checkType.Key, out value);
+            string percent = "";
+            int successes;
+            Model.CheckTypeSuccesses.TryGetValue(checkType.Key, out successes);
+            if (checkType.Value != 0)
+            {
+                percent = (value/checkType.Key).ToString("#0.##%");
+            }
+            <tr>
+                <td>@successes</td>
+                <td>@checkType.Value</td>
+                <td>@value</td>
+                <td>@percent</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+<p>@Model.FailedResults.Count Total tests Failed. Error Messages:</p>
+@foreach (KeyValuePair<string, int> error in Model.Errors)
+            {
+    <p>@error.Key</p>
+                <p>Times Experienced: @error.Value</p>
+}
