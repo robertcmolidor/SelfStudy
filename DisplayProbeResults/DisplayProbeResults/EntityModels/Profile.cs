@@ -39,7 +39,7 @@ namespace DisplayProbeResults.EntityModels
 
         public bool Enabled { get; set; }
 
-        public int DurationInterval { get; set; }
+        //public int DurationInterval { get; set; }
 
         public int? AlertProfileID { get; set; }
 

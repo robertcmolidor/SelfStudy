@@ -22,9 +22,12 @@ namespace DisplayProbeResults.Controllers
             using (var db = new ProbeContext())
             {
                 viewModel.Profiles = await db.Profiles.Where(x => x.MachineID == machine).ToListAsync();
-                viewModel.Results = await db.Results.Where(x => x.HourStamp > new DateTime(2016, 8, 17)).ToListAsync();
+                viewModel.Results = await db.Results.Where(x => x.HourStamp > new DateTime(2016, 9, 2)).ToListAsync();
                 viewModel.CheckTypes = await db.CheckTypes.ToListAsync();
             }
+
+            
+
 
             //var TestsPerProfile = new List<int>();
 
@@ -54,41 +57,37 @@ namespace DisplayProbeResults.Controllers
             }
             viewModel.PercentageSuccessful = ((double) viewModel.SuccessfulResults.Count/(double) viewModel.RelevantResults.Count);
 
-            
+            foreach (var checkType in viewModel.CheckTypes)
+            {
+                viewModel.CheckTypeSuccesses.Add(checkType.CheckTypeID, 0);
+                viewModel.CheckTypeFails.Add(checkType.CheckTypeID, 0);
+            }
 
             
-            //counting successes per test type
-            
+            //counting successes and fails per test type
+
             foreach (var profile in viewModel.Profiles)
             {
-                if (viewModel.CheckTypeSuccesses.ContainsKey(profile.CheckType))
+                foreach (var result in viewModel.RelevantResults)
                 {
-                    foreach (var result in viewModel.RelevantResults)
+                    if (profile.ProfileID == result.ProfileID && result.Success)
                     {
-                        if (profile.ProfileID == result.ProfileID && result.Success)
-                        {
-                            int value;
-                            viewModel.CheckTypeSuccesses.TryGetValue(profile.CheckType, out value);
-                            viewModel.CheckTypeSuccesses[profile.CheckType] = value + 1;
-                        }
-                        if (profile.ProfileID == result.ProfileID && !result.Success)
-                        {
-                            int value;
-                            viewModel.CheckTypeFails.TryGetValue(profile.CheckType, out value);
-                            viewModel.CheckTypeFails[profile.CheckType] = value + 1;
-
-                        }
+                        int value;
+                        viewModel.CheckTypeSuccesses.TryGetValue(profile.CheckType, out value);
+                        viewModel.CheckTypeSuccesses[profile.CheckType] = value + 1;
                     }
-                }
-                else
-                {
-                    viewModel.CheckTypeSuccesses.Add(profile.CheckType, 0);
-                    viewModel.CheckTypeFails.Add(profile.CheckType, 0);
+                    if (profile.ProfileID == result.ProfileID && !result.Success)
+                    {
+                        int value;
+                        viewModel.CheckTypeFails.TryGetValue(profile.CheckType, out value);
+                        viewModel.CheckTypeFails[profile.CheckType] = value + 1;
+                    }
                 }
             }
             var checkTypeSuccessesSorted = viewModel.CheckTypeSuccesses.OrderBy(x => x.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
             viewModel.CheckTypeSuccesses = checkTypeSuccessesSorted;
-
+            var checkTypeFailsSorted = viewModel.CheckTypeFails.OrderBy(x => x.Key).ToDictionary(pair => pair.Key, pair => pair.Value);
+            viewModel.CheckTypeFails = checkTypeFailsSorted;
 
             foreach (var result in viewModel.FailedResults)
             {

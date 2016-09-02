@@ -4,22 +4,39 @@
 }
 
 
-<p>Checked @Model.ProfilesChecked Profiles</p>
-<p>Found @Model.ProfilesNotRun Profiles NOT tested</p>
-<p>@Model.RelevantResults.Count Total Tests Run</p>
-<p>@Model.SuccessfulResults.Count Passed</p>
-<p>@Model.FailedResults.Count Failed</p>
 
 
 
-
-
-
-
-
-
-<div class="table-responsive">
+<div class="table-bordered">
     <table class="table">
+        <caption>Probe Test Results Summary</caption>
+        <thead>
+        <tr>
+            <th>Profiles Checked</th>
+            <th>Profiles Not Tested</th>
+            <th>Total Tests Run</th>
+            <th>Passed Tests</th>
+            <th>Failed Tests</th>
+            <th>Percentage Passed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>@Model.ProfilesChecked</td>
+        <td>@Model.ProfilesNotRun</td>
+        <td>@Model.RelevantResults.Count</td>
+        <td>@Model.SuccessfulResults.Count</td>
+        <td>@Model.FailedResults.Count</td>
+        <td>@Model.PercentageSuccessful.ToString("#0.##%")</td>
+        </tbody>
+    </table>
+</div>
+
+<br/>
+
+
+<div class="table-bordered">
+    <table class="table">
+        <caption>Pass and Fails Per Check Type</caption>
         <thead>
         <tr>
             <th>Test Type</th>
@@ -29,31 +46,51 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (KeyValuePair<int, int> checkType in Model.CheckTypeSuccesses)
+        @foreach (var checkType in Model.CheckTypes)
         {
-            int value;
-            Model.CheckTypeFails.TryGetValue(checkType.Key, out value);
+            int fails;
+            Model.CheckTypeFails.TryGetValue(checkType.CheckTypeID, out fails);
             string percent = "";
             int successes;
-            Model.CheckTypeSuccesses.TryGetValue(checkType.Key, out successes);
-            if (checkType.Value != 0)
+            Model.CheckTypeSuccesses.TryGetValue(checkType.CheckTypeID, out successes);
+            if (successes != 0)
             {
-                percent = (value/checkType.Key).ToString("#0.##%");
+                percent = ((double) successes/((double) successes + fails)).ToString("#0.##%");
+            }
+            else
+            {
+                percent = "0.0%";
             }
             <tr>
+                <td>@checkType.Description</td>
                 <td>@successes</td>
-                <td>@checkType.Value</td>
-                <td>@value</td>
+                <td>@fails</td>
                 <td>@percent</td>
             </tr>
         }
         </tbody>
     </table>
 </div>
+<br/>
+<div class="table-bordered">
+    <table class="table">
+        <caption>Most Common Errors</caption>
+        <thead>
+        <tr>
+            <th>Error</th>
+            <th>Times Exerienced</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (KeyValuePair<string, int> error in Model.Errors)
+        {
+            <tr>
+                <td>@error.Key</td>
+                <td>@error.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
 
-<p>@Model.FailedResults.Count Total tests Failed. Error Messages:</p>
-@foreach (KeyValuePair<string, int> error in Model.Errors)
-            {
-    <p>@error.Key</p>
-                <p>Times Experienced: @error.Value</p>
-}
+</div>
+
