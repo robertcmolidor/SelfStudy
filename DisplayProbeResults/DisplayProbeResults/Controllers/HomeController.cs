@@ -22,7 +22,7 @@ namespace DisplayProbeResults.Controllers
             using (var db = new ProbeContext())
             {
                 viewModel.Profiles = await db.Profiles.Where(x => x.MachineID == machine).ToListAsync();
-                viewModel.Results = await db.Results.Where(x => x.HourStamp > new DateTime(2016, 9, 2)).ToListAsync();
+                viewModel.Results = await db.Results.Where(x => x.HourStamp > new DateTime(2016, 8, 2)).ToListAsync();
                 viewModel.CheckTypes = await db.CheckTypes.ToListAsync();
             }
 
