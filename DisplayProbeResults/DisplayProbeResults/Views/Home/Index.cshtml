@@ -1,0 +1,97 @@
+﻿@model DisplayProbeResults.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+
+<div class="table-bordered">
+    <table class="table">
+        <caption>Probe Test Results Summary</caption>
+        <thead>
+        <tr>
+            <th>Profiles Checked</th>
+            <th>Profiles Not Tested</th>
+            <th>Total Tests Run</th>
+            <th>Passed Tests</th>
+            <th>Failed Tests</th>
+            <th>Percentage Passed</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>@Model.ProfilesChecked</td>
+        <td>@Model.ProfilesNotRun</td>
+        <td>@Model.RelevantResults.Count</td>
+        <td>@Model.SuccessfulResults.Count</td>
+        <td>@Model.FailedResults.Count</td>
+        <td>@Model.PercentageSuccessful.ToString("#0.##%")</td>
+        </tbody>
+    </table>
+</div>
+
+<br/>
+
+
+<div class="table-bordered">
+    <table class="table">
+        <caption>Pass and Fails Per Check Type</caption>
+        <thead>
+        <tr>
+            <th>Test Type</th>
+            <th>Successes</th>
+            <th>Failures</th>
+            <th>% Pass</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var checkType in Model.CheckTypes)
+        {
+            int fails;
+            Model.CheckTypeFails.TryGetValue(checkType.CheckTypeID, out fails);
+            string percent = "";
+            int successes;
+            Model.CheckTypeSuccesses.TryGetValue(checkType.CheckTypeID, out successes);
+            if (successes != 0)
+            {
+                percent = ((double) successes/((double) successes + fails)).ToString("#0.##%");
+            }
+            else
+            {
+                percent = "0.0%";
+            }
+            <tr>
+                <td>@checkType.Description</td>
+                <td>@successes</td>
+                <td>@fails</td>
+                <td>@percent</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<br/>
+<div class="table-bordered">
+    <table class="table">
+        <caption>Most Common Errors</caption>
+        <thead>
+        <tr>
+            <th>Error</th>
+            <th>Times Exerienced</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (KeyValuePair<string, int> error in Model.Errors)
+        {
+            <tr>
+                <td>@error.Key</td>
+                <td>@error.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+</div>
+
+
