@@ -26,6 +26,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using SLProvSupportMassOrderTool.com.softlayer.api;
 
 
@@ -33,8 +34,8 @@ namespace SLProvSupportMassOrderTool
 {
     public partial class Default : System.Web.UI.Page
     {
-        String username = "";                                       //set static to username of softlayer account
-        String apiKey = "";                                         //set static to apikey found in the customer portal
+        static String username = "provsupport";                                       //set static to username of softlayer account
+        static String apiKey = "6bfe39025f431808b91e651e4c4066851c0a0a2937499de9bf682ed7888a6708";                                         //set static to apikey found in the customer portal
         int hostNameIndex = 0;                                      //creating a global host name index incrementing per server ordered
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,6 +48,7 @@ namespace SLProvSupportMassOrderTool
         }
         protected void verifyOrderButton_Click(object sender, EventArgs e)
         {
+            
             SoftLayer_Container_Product_Order_Hardware_Server orderTemplate = buildTemplate();  //creates new order template and sets it to the values returned by build template
             try
             {
@@ -59,7 +61,9 @@ namespace SLProvSupportMassOrderTool
             {
                 setVerifyLabel("ERROR: Order did not pass verification" + ex.Message);
             }
-                
+            
+          
+
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
@@ -162,7 +166,23 @@ namespace SLProvSupportMassOrderTool
                     }
                 case 1:
                     {
-                        int[] orderItems = { };
+                        int[] orderItems = {
+                        
+                        6147, //8gb RAM
+                        43, //SATA controller
+                        60307, //1tb SATA
+                        50357, //500GB throughput
+                        550, //100mbps pub/priv uplinks
+                        275, //100mbps public
+                        277, //100mbps private
+                        906, //remote Management
+                        21, //1 ip address
+                        55, //ping monitor
+                        57, //email and ticket
+                        58, //automated notification
+                        420, //unlimited vpn users
+                        418, //nessus vulnerability and assessment reporting
+                        };
                         return orderItems;
                     }
                 case 2:
@@ -185,11 +205,11 @@ namespace SLProvSupportMassOrderTool
             int[] orderNull = { };
             return orderNull;
         }
-
+        
         private bool verifyOrder(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
         {
 
-            /*authenticate authenticate = new authenticate();
+            authenticate authenticate = new authenticate();
             authenticate.username = username;
             authenticate.apiKey = apiKey;
             SoftLayer_Product_OrderService orderService = new SoftLayer_Product_OrderService();
@@ -199,12 +219,12 @@ namespace SLProvSupportMassOrderTool
                 SoftLayer_Container_Product_Order_Hardware_Server verifiedOrder = (SoftLayer_Container_Product_Order_Hardware_Server)orderService.verifyOrder(orderTemplate);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
+                setVerifyLabel("ERROR: Order did not submit" + ex.Message);
                 return false;
             }
-            */
-            return true;
+          
         }
 
         private bool submitOrder(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
@@ -225,6 +245,7 @@ namespace SLProvSupportMassOrderTool
                 return false;
             }
             */
+            writeHostnames(orderTemplate);
             return true;
         }
 
@@ -237,6 +258,7 @@ namespace SLProvSupportMassOrderTool
                 + "." 
                 + orderTemplate.hardware[i].domain
                 +"<br />";
+            
         }
         private void setVerifyLabel(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
         {
@@ -245,6 +267,16 @@ namespace SLProvSupportMassOrderTool
         private void setVerifyLabel(string output)
         {
             verifyLabel.Text = output;
+        }
+        private void writeHostnames(SoftLayer_Container_Product_Order_Hardware_Server orderTemplate)
+        {
+            for (int n = 0; n < orderTemplate.hardware.Length - 1; n++)
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"C:\slprovsupportmassordertool output\hostnames.txt", true))
+                {
+                    file.WriteLine(orderTemplate.hardware[n].hostname + "." + orderTemplate.hardware[n].domain);
+                }
+            }
         }
 
     }

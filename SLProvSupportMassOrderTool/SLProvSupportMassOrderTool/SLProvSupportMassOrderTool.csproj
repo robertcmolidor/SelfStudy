@@ -443,6 +443,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SoftLayer_API.cs" />
     <Compile Include="Web References\com.softlayer.api1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
