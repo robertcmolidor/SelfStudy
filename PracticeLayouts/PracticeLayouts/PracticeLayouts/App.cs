@@ -8,6 +8,7 @@ using PracticeLayouts.Names;
 using PracticeLayouts.Stack1;
 using PracticeLayouts.Stack2Img;
 using PracticeLayouts.Corners;
+using PracticeLayouts.KeyPad;
 using PracticeLayouts.Picker;
 using PracticeLayouts.Stack3;
 using PracticeLayouts.TwoWayBinding;
@@ -21,7 +22,7 @@ namespace PracticeLayouts
         {
             var tabs = new TabbedPage { Title = "Practice Layouts" };
             tabs.Children.Add(new TumblePage { Title = "Tumble" });
-    
+            tabs.Children.Add(new KeyPadPage { Title = "KeyPad" });
             tabs.Children.Add(new ClockPage { Title = "Clock" });
 
             tabs.Children.Add(new TwoWayBindingPage { Title = "Colors" });

@@ -11,7 +11,6 @@ namespace PracticeLayouts.KeyPad
 {
     class KeyPadViewModel : INotifyPropertyChanged
     {
-
         string inputString = "";
         string displayText = "";
         char[] specialChars = {'*', '#'};
@@ -20,29 +19,23 @@ namespace PracticeLayouts.KeyPad
 
         public KeyPadViewModel()
         {
-            this.AddCharCommand = new Command<string>((key) =>
-            {
-                this.InputString += key;
-            });
-            this.DeleteCharCommand = new Command((nothing) =>
-            {
-                this.inputString = this.InputString.Substring(0, this.InputString.Length - 1);
-            },
-                (nothing) =>
-                {
-                    return this.InputString.Length > 0;
-                });
+            this.AddCharCommand = new Command<string>((key) => { this.InputString += key; });
+            this.DeleteCharCommand =
+                new Command(
+                    (nothing) => { this.InputString = this.InputString.Substring(0, this.InputString.Length - 1); },
+                    (nothing) => { return this.InputString.Length > 0; });
         }
 
         public string InputString
         {
             protected set
             {
-                if(inputString != value)
+                if (inputString != value)
                 {
                     inputString = value;
                     OnPropertyChanged("InputString");
                     this.DisplayText = FormatText(inputString);
+                    ((Command) this.DeleteCharCommand).ChangeCanExecute();
                 }
             }
             get { return inputString; }
@@ -70,7 +63,6 @@ namespace PracticeLayouts.KeyPad
             string formatted = str;
             if (hasNonNumbers || str.Length < 4 || str.Length > 10)
             {
-
             }
             else if (str.Length < 8)
             {
@@ -84,12 +76,10 @@ namespace PracticeLayouts.KeyPad
         }
 
         protected void OnPropertyChanged(string propertyName)
-            {
+        {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        }
-    
-
     }
-    
 }
+
+    
