@@ -43,6 +43,7 @@
     <Compile Include="Stack1\Stack1Page.cs" />
     <Compile Include="Stack2Img\Stack2ImgPage.cs" />
     <Compile Include="Stack3\Stack3Page.cs" />
+    <Compile Include="ViewBinding\TumblePage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

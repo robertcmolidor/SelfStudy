@@ -9,6 +9,7 @@ using PracticeLayouts.Stack2Img;
 using PracticeLayouts.Corners;
 using PracticeLayouts.Picker;
 using PracticeLayouts.Stack3;
+using PracticeLayouts.ViewBinding;
 
 namespace PracticeLayouts
 {
@@ -17,7 +18,8 @@ namespace PracticeLayouts
         public App()
         {
             var tabs = new TabbedPage { Title = "Practice Layouts" };
-            tabs.Children.Add(new PickerView{ Title = "Picker" });
+            tabs.Children.Add(new TumblePage { Title = "Tumble" });
+            //tabs.Children.Add(new PickerView{ Title = "Picker" });
             tabs.Children.Add(new NamesPage { Title = "Names"});
             tabs.Children.Add(new Stack1Page { Title = "Stack 1" });
             tabs.Children.Add(new Stack2ImgPage { Title = "Stack 2" });
