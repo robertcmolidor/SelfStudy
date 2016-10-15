@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Clock\ClockPage.cs" />
+    <Compile Include="Clock\ClockViewModel.cs" />
     <Compile Include="Corners\CornersPage.cs" />
     <Compile Include="Names\NamesPage.cs" />
     <Compile Include="Picker\PickerView.cs" />
@@ -43,6 +45,8 @@
     <Compile Include="Stack1\Stack1Page.cs" />
     <Compile Include="Stack2Img\Stack2ImgPage.cs" />
     <Compile Include="Stack3\Stack3Page.cs" />
+    <Compile Include="TwoWayBinding\TwoWayBindingPage.cs" />
+    <Compile Include="TwoWayBinding\TwoWayBindingViewModel.cs" />
     <Compile Include="ViewBinding\TumblePage.cs" />
   </ItemGroup>
   <ItemGroup>
