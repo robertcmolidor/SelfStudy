@@ -11,8 +11,8 @@ namespace PracticeLayouts.TwoWayBinding
     class TwoWayBindingViewModel : INotifyPropertyChanged
     {
 
-        public double hue, saturation, luminosity;
-        public Color color;
+         double hue, saturation, luminosity;
+         Color color;
 
 
         public event PropertyChangedEventHandler PropertyChanged;   //this does something when properties in the binding context are changed
@@ -23,7 +23,7 @@ namespace PracticeLayouts.TwoWayBinding
             {
                 if (hue != value)
                 {
-                    Hue = value;
+                    hue = value;
                     OnPropertyChanged("Hue");
                     SetNewColor();
 
@@ -38,7 +38,7 @@ namespace PracticeLayouts.TwoWayBinding
             {
                 if (saturation != value)
                 {
-                    Saturation = value;
+                    saturation = value;
                     OnPropertyChanged("Saturation");
                     SetNewColor();
                 }
@@ -52,7 +52,7 @@ namespace PracticeLayouts.TwoWayBinding
             {
                 if (luminosity != value)
                 {
-                    Luminosity = value;
+                    luminosity = value;
                     OnPropertyChanged("Luminosity");
                     SetNewColor();
                 }
@@ -66,20 +66,20 @@ namespace PracticeLayouts.TwoWayBinding
             {
                 if (color != value)
                 {
-                    Color = value;
+                    color = value;
                     OnPropertyChanged("Color");
                     this.Hue = value.Hue;
                     this.Saturation = value.Saturation;
                     this.Luminosity = value.Luminosity;
                 }
             }
-            get { return Color; }
+            get { return color; }
         }
 
 
         void SetNewColor()
         {
-            this.Color = Color.FromHsla(this.Hue, this.Luminosity, this.Saturation);
+            this.Color = Color.FromHsla(this.Hue,  this.Saturation, this.Luminosity);
         }
 
 

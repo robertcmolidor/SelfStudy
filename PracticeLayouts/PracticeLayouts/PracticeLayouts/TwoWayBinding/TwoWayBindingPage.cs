@@ -15,7 +15,7 @@ namespace PracticeLayouts.TwoWayBinding
         {
             var viewModel = new TwoWayBindingViewModel();
             BindingContext = viewModel;
-            viewModel.color = Color.Black;
+            viewModel.Color = Color.Blue;
 
             var colorBox = new BoxView
             {
@@ -58,19 +58,15 @@ namespace PracticeLayouts.TwoWayBinding
             colorBox.SetBinding(BoxView.ColorProperty, "Color");
 
 
-            //var wrapper = new StackLayout
-            //{
-
-            //    Children = { colorBox, hueSlider, hue, saturationSlider, saturation, luminositySlider, luminosity }
-            //};
-
             var wrapper = new StackLayout
             {
 
-                Children = { new Label {Text = "Hi"} }
+                Children = { colorBox, hueSlider, hue, saturationSlider, saturation, luminositySlider, luminosity }
             };
 
-            Content = new ScrollView { Content = wrapper };
+
+
+            Content  = wrapper;
         }
     }
 }
