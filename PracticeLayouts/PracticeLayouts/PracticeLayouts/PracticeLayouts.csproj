@@ -39,6 +39,8 @@
     <Compile Include="Clock\ClockPage.cs" />
     <Compile Include="Clock\ClockViewModel.cs" />
     <Compile Include="Corners\CornersPage.cs" />
+    <Compile Include="KeyPad\KeyPadPage.cs" />
+    <Compile Include="KeyPad\KeyPadViewModel.cs" />
     <Compile Include="Names\NamesPage.cs" />
     <Compile Include="Picker\PickerView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
