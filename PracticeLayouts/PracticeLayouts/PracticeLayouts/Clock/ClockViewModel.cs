@@ -10,15 +10,15 @@ namespace PracticeLayouts.Clock
 {
     class ClockViewModel : INotifyPropertyChanged
     {
-        DateTime dateTime;
+        private DateTime _dateTime;
         public event PropertyChangedEventHandler PropertyChanged;
 
         public ClockViewModel()
         {
-            this.DateTime = DateTime.Now;
+            DateTime = DateTime.Now;
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                this.DateTime = DateTime.Now;
+                DateTime = DateTime.Now;
                 return true;
             });
         }
@@ -27,16 +27,13 @@ namespace PracticeLayouts.Clock
         {
             set
             {
-                if (dateTime != value)
+                if (_dateTime != value)
                 {
-                    dateTime = value;
-                    if (PropertyChanged != null)
-                    {
-                        PropertyChanged(this, new PropertyChangedEventArgs("DateTime"));
-                    }
+                    _dateTime = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateTime"));  //null propegation
                 }
             }
-            get { return dateTime; }
+            get { return _dateTime; }
         }
     }
 }

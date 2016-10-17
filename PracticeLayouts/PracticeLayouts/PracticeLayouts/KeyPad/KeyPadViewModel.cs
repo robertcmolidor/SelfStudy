@@ -11,56 +11,56 @@ namespace PracticeLayouts.KeyPad
 {
     class KeyPadViewModel : INotifyPropertyChanged
     {
-        string inputString = "";
-        string displayText = "";
-        char[] specialChars = {'*', '#'};
+        private string _inputString = "";                //this holds the local version of input string.  
+        private string _displayText = "";                //same for displayText.  this allows us to keep it private, separate from the getters and setters
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private char[] specialChars = {'*', '#'};      //this is used in the formatter to check for * or # on a normal numpad 
 
-        public KeyPadViewModel()
+        public event PropertyChangedEventHandler PropertyChanged;       //this gets called when either of the two local variables have changed
+
+
+        public ICommand AddCharCommand { protected set; get; }              //this allows us to add commands to our buttons on the page
+        public ICommand DeleteCharCommand { protected set; get; }           //these commands are defined below, they are assigned a "new Command"
+
+        public KeyPadViewModel()    //constructor
         {
-            this.AddCharCommand = new Command<string>((key) => { this.InputString += key; });
-            this.DeleteCharCommand =
-                new Command(
-                    (nothing) => { this.InputString = this.InputString.Substring(0, this.InputString.Length - 1); },
-                    (nothing) => { return this.InputString.Length > 0; });
+            AddCharCommand = new Command<string>(key => { InputString += key; });  //this new command take takes a type of string called key.  we pass key to an anonymous function and it appends key to InputString                                  
+            DeleteCharCommand = new Command(                                                            //this new command doesn't take anything.  
+                    nothing => { InputString = InputString.Substring(0, InputString.Length - 1); },     //sets InputString to its contents minus 1.  this is essentially dropping the last entry which is being deleted
+                    nothing => InputString.Length > 1                                                   // returns true if InputString is bigger than 0
+                    );                                                                                  //
         }
 
-        public string InputString
-        {
-            protected set
-            {
-                if (inputString != value)
-                {
-                    inputString = value;
-                    OnPropertyChanged("InputString");
-                    this.DisplayText = FormatText(inputString);
-                    ((Command) this.DeleteCharCommand).ChangeCanExecute();
-                }
+        public string InputString                                           //Input string property
+        {                                                                   //
+            protected set                                                   //protecting the set from outside foes    
+            {                                                               //
+                if (_inputString == value) return;                           //checking if inputString has changed if not kick out of this
+                _inputString = value;                                        //setting inputString to value being passed in
+                OnPropertyChanged("InputString");                           //raising a PropertyChanged event that the "InputString" property has changed
+                DisplayText = FormatText(_inputString);                      //set DisplayText to the input string (this goes through a formatter to make like phone numbers
+                ((Command) DeleteCharCommand).ChangeCanExecute();           //i have no idea what this does.//////////////////////////////////////////////////////////////
             }
-            get { return inputString; }
+            get { return _inputString; }                                      
         }
 
-        public string DisplayText
+        public string DisplayText                           //this is the final string that is displayed 
         {
-            protected set
+            protected set                                   
             {
-                if (displayText != value)
-                {
-                    displayText = value;
-                    OnPropertyChanged("DsiplayText");
-                }
+                if (_displayText == value) return;           //when setting this we're checking if is't the same as was passed in. if so, bounc out.
+                _displayText = value;                        //set displayText to the value being passed in
+                OnPropertyChanged("DisplayText");           //raise event that "DisplayText" has changed
             }
-            get { return displayText; }
+            get { return _displayText; }
         }
 
-        public ICommand AddCharCommand { protected set; get; }
-        public ICommand DeleteCharCommand { protected set; get; }
+        
 
-        protected string FormatText(string str)
+        protected string FormatText(string str) //all this is doing really is putting dashes in to make it look like a phone number.  not explaining it since it's just fancy pants
         {
-            bool hasNonNumbers = str.IndexOfAny(specialChars) != -1;
-            string formatted = str;
+            var hasNonNumbers = str.IndexOfAny(specialChars) != -1;
+            var formatted = str;
             if (hasNonNumbers || str.Length < 4 || str.Length > 10)
             {
             }
@@ -75,10 +75,11 @@ namespace PracticeLayouts.KeyPad
             return formatted;
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected void OnPropertyChanged(string propertyName)                               //this is implemented from InotifyPropertyChanged.  This allows us to raise events in the case 
+        {                                                                                   //one of our properties change.  
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));      //this expression is checking for a null, if not, then it initializes a new instance of the evenchange 
+        }                                                                                   //giving it the property name that was changed beit displayText or inputText.  binded properties look 
+                                                                                            //for this event to update their own values
     }
 }
 
