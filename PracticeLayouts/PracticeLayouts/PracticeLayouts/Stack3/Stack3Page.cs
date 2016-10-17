@@ -25,9 +25,9 @@ namespace PracticeLayouts.Stack3
                     },
                     ColumnDefinitions =
                     {
-                        new ColumnDefinition {Width = GridLength.Auto},
                         new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)},
-                        new ColumnDefinition {Width = new GridLength(100, GridUnitType.Absolute)}
+                        new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)},
+                        new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)}
                     }
                 };
                 grid.Children.Add(new Label {Text = "Label 1", HorizontalTextAlignment = TextAlignment.Start}, 0, 0);
