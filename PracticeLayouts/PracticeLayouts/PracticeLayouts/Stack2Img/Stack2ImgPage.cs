@@ -11,59 +11,19 @@ namespace PracticeLayouts.Stack2Img
     {
         public Stack2ImgPage()
         {
-            var photoList = new List<Image>
+            var photoNames = new List<string>{"one.jpeg", "two.jpeg", "three.jpeg", "four.jpeg", "five.jpeg", "six.jpeg", "seven.jpeg", "eight.jpeg", "nine.jpeg", "ten.jpeg" };
+            var photoList = new List<Image>();
+            foreach (var photo in photoNames)
             {
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"one.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"two.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"three.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"four.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"five.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"six.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"seven.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"eight.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"nine.jpeg"},
-                 new Image {
-                     Aspect = Aspect.AspectFit,
-                     VerticalOptions = LayoutOptions.Center,
-                     HorizontalOptions = LayoutOptions.Center,
-                     Source = @"ten.jpeg"},
-            };
+                var img = new Image
+                {
+                    Aspect = Aspect.AspectFit,
+                    VerticalOptions = LayoutOptions.Center,
+                    HorizontalOptions = LayoutOptions.Center,
+                    Source = photo
+                };
+                photoList.Add(img);
+            }
 
             var stack = new StackLayout();
             stack.VerticalOptions = LayoutOptions.FillAndExpand;

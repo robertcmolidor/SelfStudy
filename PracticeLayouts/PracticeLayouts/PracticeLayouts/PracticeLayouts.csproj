@@ -52,6 +52,7 @@
     <Compile Include="TwoWayBinding\TwoWayBindingPage.cs" />
     <Compile Include="TwoWayBinding\TwoWayBindingViewModel.cs" />
     <Compile Include="ViewBinding\TumblePage.cs" />
+    <Compile Include="TableView\TableViewPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

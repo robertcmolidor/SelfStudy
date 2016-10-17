@@ -13,6 +13,7 @@ using PracticeLayouts.Picker;
 using PracticeLayouts.Stack3;
 using PracticeLayouts.TwoWayBinding;
 using PracticeLayouts.ViewBinding;
+using PracticeLayouts.TableView;
 
 namespace PracticeLayouts
 {
@@ -34,7 +35,7 @@ namespace PracticeLayouts
             tabs.Children.Add(new Stack2ImgPage { Title = "Stack 2" });
             tabs.Children.Add(new CornersPage { Title = "Corners" });
             tabs.Children.Add(new Stack3Page { Title = "Stack 3" });
-
+            tabs.Children.Add(new TableViewPage { Title = "TableView" });
             MainPage = tabs;
         }
                    
