@@ -18,49 +18,40 @@ namespace NetworkStudy
         static void Main(string[] args)
         {
 
-            var ipString = "";
+            
+            var icmpListener = new Thread(new ThreadStart(IcmpListener));
+            icmpListener.Start();
+            SendUdp(5050, "216.58.218.142",80,new byte[1024]);
+            Thread.Sleep(1000);
 
-            CreateIcmpSocket();
-            SendUdp(11000, "108.59.46.162", 17, Encoding.ASCII.GetBytes("Hello!"));
-            while (true) { Thread.Sleep(10); }
+
 
             
+            icmpListener.Abort();
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadKey();
+
 
         }
-        private static void CreateIcmpSocket()
+
+        static void IcmpListener()
         {
-            icmpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Icmp);
-            icmpSocket.Bind(new IPEndPoint(IPAddress.Any, 0));
-            // Uncomment to receive all ICMP message (including destination unreachable).
-            // Requires that the socket is bound to a particular interface. With mono,
-            // fails on any OS but Windows.
-            //if (Environment.OSVersion.Platform == PlatformID.Win32NT)
-            //{
-                //icmpSocket.IOControl(IOControlCode.ReceiveAll, new byte[] { 1, 0, 0, 0 }, new byte[] { 1, 0, 0, 0 });
-            //}
-            BeginReceiveFrom();
-        }
-        private static void ReceiveCallback(IAsyncResult ar)
-        {
-            int len = icmpSocket.EndReceiveFrom(ar, ref remoteEndPoint);
-            Console.WriteLine(string.Format("{0} Received {1} bytes from {2}",
-                DateTime.Now, len, remoteEndPoint));
-            LogIcmp(receiveBuffer, len);
-            BeginReceiveFrom();
-        }
-        private static void BeginReceiveFrom()
-        {
-            icmpSocket.BeginReceiveFrom(receiveBuffer, 0, receiveBuffer.Length, SocketFlags.None, ref remoteEndPoint, ReceiveCallback, null);
-        }
-        private static void LogIcmp(byte[] buffer, int length)
-        {
-            for (int i = 0; i < length; i++)
+            while (true)
             {
-                Console.Write(String.Format("{0:X2} ", buffer[i]));
-            }
-            Console.WriteLine("");
-        }
 
+                Socket icmpListener = new Socket(AddressFamily.InterNetwork, SocketType.Raw, ProtocolType.Icmp);
+                icmpListener.Bind(new IPEndPoint(IPAddress.Parse("192.168.0.6"), 0));
+                icmpListener.IOControl(IOControlCode.ReceiveAll, new byte[] { 1, 0, 0, 0 }, null);
+
+                byte[] buffer = new byte[1024 * 1024];
+                EndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
+
+                int bytesRead = icmpListener.ReceiveFrom(buffer, ref remoteEndPoint);
+                string receivedMsg = Encoding.UTF8.GetString(buffer, 28, bytesRead);
+                Console.WriteLine(DateTime.Now.ToString() + ": Received " + bytesRead + "B from " + remoteEndPoint +
+                                  ": " + receivedMsg);
+            }
+        }
 
         static void SendUdp(int srcPort, string dstIp, int dstPort, byte[] data)
         {
