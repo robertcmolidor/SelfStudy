@@ -14,15 +14,12 @@ namespace PracticeLayouts.Picker
         public Dictionary<string,Guid> ItemsDictionary { get; set; }
         
         
-
-
-
+        public event PropertyChangedEventHandler PropertyChanged;
         //Bindable Properties
-        public event PropertyChangedEventHandler PropertyChanged; 
 
         private Dictionary<string,Guid> _selectedItems;
 
-        public Dictionary<string,Guid> SelectedItems //we're going to bind our picker view to this property.
+        public Dictionary<string,Guid> SelectedItems 
         {
             set
             {
@@ -47,6 +44,7 @@ namespace PracticeLayouts.Picker
                 {"Friday", Guid.NewGuid() },
                 {"Saturday", Guid.NewGuid() }
             };
+            SelectedItems = new Dictionary<string, Guid>();
         }
 
 

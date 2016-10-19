@@ -17,7 +17,7 @@ namespace PracticeLayouts.KeyPad
             BindingContext = viewModel;                 //bindingContext is inherited.  this means that the ContentPage entirely is set to this viewModel.
                                                         //it is good.  it allows our bindable properties to bind to properties in the viewModel
 
-//these are the 0-9, *,#, and delete buttons.  Notice the command.  we are executing the command interfect for AddCharCommand and passing it the value as a string.  
+//these are the 0-9, *,#, and delete buttons.  Notice the command.  we are executing the command interface for AddCharCommand and passing it the value as a string.  
 //if you take a look at the delete button, it calls the DeleteCharCommand which takes nothing and that fires off the viewmodel to shorten the string by one and raise an event
 //that the displayText has changed.  The label which is binded to this property will then update itself to show our string. 
 #region Buttons

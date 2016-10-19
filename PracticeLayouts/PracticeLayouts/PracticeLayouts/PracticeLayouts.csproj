@@ -45,6 +45,7 @@
     <Compile Include="Picker\MultiSelectPage.cs" />
     <Compile Include="Picker\MultiSelectViewModel.cs" />
     <Compile Include="Picker\PickerPage.cs" />
+    <Compile Include="Picker\PickerPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stack1\Stack1Page.cs" />
     <Compile Include="Stack2Img\Stack2ImgPage.cs" />

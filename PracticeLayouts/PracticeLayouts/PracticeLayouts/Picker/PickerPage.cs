@@ -10,17 +10,32 @@ namespace PracticeLayouts.Picker
 {
     class PickerPage : ContentPage
     {
-        private Dictionary<string, Guid> Selected;
-        
-        public PickerPage(Dictionary<string, Guid> input)
-        {
-            
-            var wrapper = new StackLayout();
+        private PickerPageViewModel _viewModel;
 
-            foreach (var item in input)
+        
+        public PickerPage(PickerPageViewModel input)
+        {
+            _viewModel = input;
+            var okayButton = new Button
             {
-                
+                Text = "OK"
+            };
+            okayButton.Clicked += async (o, args) => await OkayButtonClicked(o, args);
+            var wrapper = new StackLayout
+            {
+                Children = { okayButton}
+            };
+            foreach (var item in _viewModel.ItemsList)
+            {
+                wrapper.Children.Add(BuildPickerCell(item));
             }
+            Content = wrapper;
+        }
+
+        private async Task OkayButtonClicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+            await Navigation.PushAsync(new MultiSelectPage(_viewModel.SelectedItems));
         }
 
         private StackLayout BuildPickerCell(KeyValuePair<string, Guid> input)
@@ -36,7 +51,7 @@ namespace PracticeLayouts.Picker
                 VerticalOptions = LayoutOptions.Center,
                 RowDefinitions =
                 {
-                    new RowDefinition {Height = GridLength.Auto},
+                    new RowDefinition {Height = new GridLength(40,GridUnitType.Star)},
 
                 },
                 ColumnDefinitions =
@@ -53,12 +68,23 @@ namespace PracticeLayouts.Picker
 
             };
             var tap = new TapGestureRecognizer();
-            tap.Tapped += (s, e) => {
-                
+            tap.Tapped += (s, e) =>
+            {
+                if (_viewModel.SelectedItems.ContainsValue(input.Value))
+                {
+                    _viewModel.SelectedItems.Remove(input.Key);
+                    checkedImage.Source = "";
+                }
+                else
+                {
+                    _viewModel.SelectedItems.Add(input.Key,input.Value);
+                    checkedImage.Source = "checkWhite.png";
+                }
             };
+            if (_viewModel.SelectedItems.ContainsValue(input.Value))
+                checkedImage.Source = "checkWhite.png";
             cell.Children.Add(grid);
-
-
+            cell.GestureRecognizers.Add(tap);
             return cell;
 
         } 

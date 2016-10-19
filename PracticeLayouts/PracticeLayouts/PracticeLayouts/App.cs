@@ -22,8 +22,7 @@ namespace PracticeLayouts
         public App()
         {
             var tabs = new TabbedPage { Title = "Practice Layouts" };
-            tabs.Children.Add(new MultiSelectPage { Title = "MultiSelect" });
-
+            tabs.Children.Add(new NavigationPage(new MultiSelectPage()) { Title = "MultiSelect" });
             tabs.Children.Add(new TumblePage { Title = "Tumble" });
             tabs.Children.Add(new KeyPadPage { Title = "KeyPad" });
             tabs.Children.Add(new ClockPage { Title = "Clock" });

@@ -10,38 +10,50 @@ namespace PracticeLayouts.Picker
     class MultiSelectPage : ContentPage
     {
         private MultiSelectViewModel _viewModel;
-        public MultiSelectPage()
+
+        public MultiSelectPage(Dictionary<string, Guid> selectedItems = null)
         {
+            if(selectedItems == null)
+            selectedItems = new Dictionary<string, Guid>();
             _viewModel = new MultiSelectViewModel();
+            _viewModel.SelectedItems = selectedItems;
             BindingContext = _viewModel;
+
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            
+            
 
             var selectDaysButton = new Button
             {
                 Text = "Select Days"
             };
-            selectDaysButton.Clicked += OnSelectDaysButtonClicked;
-           
+            selectDaysButton.Clicked += async (o, args) => await OnSelectDaysButtonClicked(o, args);
+
             var itemsList = new ListView
             {
-                
+                VerticalOptions = LayoutOptions.FillAndExpand
             };
-           itemsList.SetBinding(ListView.ItemsSourceProperty, "SelectedItems");
+            itemsList.SetBinding(ListView.ItemsSourceProperty, "SelectedItems");
             var wrapper = new StackLayout
             {
+                VerticalOptions = LayoutOptions.FillAndExpand,
                 Children = {selectDaysButton, itemsList}
             };
             Content = wrapper;
-
-
-
         }
 
-        void OnSelectDaysButtonClicked(object o, EventArgs e)
+        async Task OnSelectDaysButtonClicked(object o, EventArgs e)
         {
-            var pickerPage = new PickerPage(_viewModel.ItemsDictionary);
-            pickerPage.BindingContext = _viewModel;
-            Navigation.PushAsync(pickerPage);
+            var viewModel = new PickerPageViewModel();
+            viewModel.SelectedItems = _viewModel.SelectedItems;
+            viewModel.ItemsList = _viewModel.ItemsDictionary;
+            await Navigation.PushAsync(new PickerPage(viewModel));
         }
     }
-
 }
+
+

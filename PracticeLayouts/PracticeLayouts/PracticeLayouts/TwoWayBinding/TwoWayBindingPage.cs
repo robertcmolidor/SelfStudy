@@ -41,9 +41,9 @@ namespace PracticeLayouts.TwoWayBinding
 
 
 
-            var hueSlider = new Slider { HorizontalOptions = LayoutOptions.Center };
-            var saturationSlider = new Slider { HorizontalOptions = LayoutOptions.Center };
-            var luminositySlider = new Slider { HorizontalOptions = LayoutOptions.Center };
+            var hueSlider = new Slider { HorizontalOptions = LayoutOptions.FillAndExpand };
+            var saturationSlider = new Slider { HorizontalOptions = LayoutOptions.FillAndExpand };
+            var luminositySlider = new Slider { HorizontalOptions = LayoutOptions.FillAndExpand };
 
 
 
