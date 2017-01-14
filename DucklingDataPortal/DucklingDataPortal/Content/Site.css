@@ -1,0 +1,94 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url("img/flowersBackground.jpeg");
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.ducklingLogo {
+    
+    display: block;
+    max-height: 35px;
+    max-width: 250px;
+    margin-top: 7px;
+    width:100%
+    
+}
+.ducklingNav {
+    
+    min-height: 70px;
+    max-height: 70px;
+    
+    display: inline-block;
+    width: 100%;
+}
+
+.panel-background {
+   
+    background-color: #ffffff;
+    background-color: rgba(255,255,255, 0.8)!important;
+    padding: 30px;
+  margin-bottom: 30px;
+  font-size: 21px;
+  font-weight: 200;
+  
+    border-radius: 10px;
+    color: black;
+    
+}
+
+
+
+.dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+    
+}
+
+.dropdown-content {
+    z-index: 999;
+    display: none;
+    position: absolute;
+    background-color: rgba(255,255,255, 0.8)!important;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0;
+    border-radius: 5px;
+    
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown a:hover {background-color: rgba(255,255,255, 0.9)!important;}
+.show {display:block;}
+
+.list-item {
+    background-color: rgba(255,255,255, 0.0)!important;
+    padding-right: 10px;
+    text-align: right;
+}
+.list-item:hover {
+    background-color: rgba(255,255,255, 0.5)!important;
+    
+}
+

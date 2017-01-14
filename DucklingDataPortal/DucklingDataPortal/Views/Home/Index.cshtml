@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="ducklingNav">
+    <div class="col-md-3 col-sm-4 col-xs-9 ducklingLogo">
+        <img class="ducklingLogo" src="~/Content/img/ducklingDataLogo.png" />
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-3" style="float: right">
+        <div class="dropdown">
+            <div class="hamburger hamburger--collapse" type="button" id="hamburger">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+            <div id="myDropdown" class="dropdown-content">
+
+                <h3 class="dropdown-item list-item" id="homeButton">Home</h3>
+                <h3 class="dropdown-item list-item" id="aboutButton">About</h3>
+                <h3 class="dropdown-item list-item" id="contactButton">Contact</h3>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container panel-background" id="comingSoon">
+
+    <h3 class="gotham">Welcome to Duckling Data</h3>
+    <p>
+        We can do anything we put our minds to. This is the philosophy behind Duckling Data. Our purpose is to nest and nurture ideas for feasable products and provide an avenue to get projects to market.
+        As functionality is added to this site, users will be able to connect with one another to help bring concepts to reality. As hobbyists in the software industry, this page is an outlet for our creativity.
+    </p>
+    @*<p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>*@
+
+</div>
+
+<div class="container panel-background " id="aboutUs" style="display: none;">
+    <h3 class="gotham">About Us</h3>
+    <div>
+
+        <div class="col-md-8">
+            <p>
+                He's a sasoned IT professional in his first year of software development. She is a skilled office manager studying to design and build user interfaces for web applications.
+                Together, we are Duckling Data. This organization is mostly just a playspace for our studies and interests. It also serves as an official outlet for projects needing marketable status and tax credentials.
+                Nestled in the depths of North Dallas Texas we don't treat coding as a day job, it's a way of life.
+            </p>
+        </div>
+        <div class="col-md-3">
+            <img class="thumbnail" style="min-height:50px;height:200px;" src="~/Content/img/michelleSelfie.jpg" />
+            <p></p>
+            <img class="thumbnail" style="min-height:50px;height:200px;" src="~/Content/img/robselfie.jpg" />
+        </div>
+    </div>
+</div>
+
+<div class="container panel-background" id="contact" style="display: none;">
+
+    <h3 class="gotham">Contact Us</h3>
+    <p>
+        Contacting us has never been easier. Simply send an email to <a href="mailto:ducklingdatausers@gmail.com">Duckling Data Users</a>
+    </p>
+    <p>We do keep ourselves pretty busy, but if you contact us, we'll notice!</p>
+
+
+</div>
+
+
+<script>
+    var isActive = false;
+    // Look for .hamburger
+    var hamburger = document.querySelector(".hamburger");
+    // On click
+    hamburger.addEventListener("click",
+        function() {
+            // Toggle class "is-active"
+            hamburger.classList.toggle("is-active");
+            // Do something else, like open/close menu
+            if (isActive) {
+                $("#myDropdown").fadeOut(200);
+                isActive = false;
+            } else {
+                $("#myDropdown").slideDown(200);
+                isActive = true;
+            }
+        });
+
+    $(document).ready(function() {
+        $('#homeButton').click(function(e) {
+            $("#myDropdown").fadeOut(750);
+            isActive = false;
+            hamburger.classList.toggle("is-active");
+            $("#aboutUs").fadeOut(500, function (){
+                $("#contact").fadeOut(500, function() {
+                    $("#comingSoon").fadeIn(500);
+                });
+                });
+            });
+
+        });
+        $('#aboutButton').click(function (e) {
+            $("#myDropdown").fadeOut(750);
+            isActive = false;
+            hamburger.classList.toggle("is-active");
+            $("#comingSoon").fadeOut(500, function () {
+                $("#contact").fadeOut(500, function() {
+                    $("#aboutUs").fadeIn(500);
+                });
+            });
+        });
+
+        $('#contactButton').click(function (e) {
+            $("#myDropdown").fadeOut(750);
+            isActive = false;
+            hamburger.classList.toggle("is-active");
+            $("#aboutUs").fadeOut(500, function (){
+                $("#comingSoon").fadeOut(500, function () {
+                    $("#contact").fadeIn(500);
+                });
+            });
+        });
+
+
+</script>

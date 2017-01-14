@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7876B227-C153-4170-A2B5-8C62AE1D4EF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{835E2F0B-6459-499B-88B6-A27922FDC484}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "DucklingDataCouchDB", "src\DucklingDataCouchDB\DucklingDataCouchDB.xproj", "{FA8C454F-0631-4A57-8DDD-52B384F8DC78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FA8C454F-0631-4A57-8DDD-52B384F8DC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA8C454F-0631-4A57-8DDD-52B384F8DC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA8C454F-0631-4A57-8DDD-52B384F8DC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA8C454F-0631-4A57-8DDD-52B384F8DC78}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FA8C454F-0631-4A57-8DDD-52B384F8DC78} = {7876B227-C153-4170-A2B5-8C62AE1D4EF7}
+	EndGlobalSection
+EndGlobal
