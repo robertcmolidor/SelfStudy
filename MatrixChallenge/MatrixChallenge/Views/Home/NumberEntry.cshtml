@@ -1,0 +1,27 @@
+﻿@model MatrixChallenge.ViewModels.NumberEntryViewModel
+@{
+    ViewBag.Title = "NumberEntry";
+}
+
+<h2>NumberEntry</h2>
+
+@using (Html.BeginForm("Result", "Home"))
+{
+    for (int n = 0; n < Model.Matrices.Count; n++)
+    {
+        
+            for (int i = 0; i < Model.Matrices[n].Grid.Length; i++)
+            {
+                for (int j = 0; j < Model.Matrices[n].Grid[i].Length; j++)
+                {
+                    @Html.TextBoxFor(x => Model.Matrices[n].Grid[i][j], new {@type = "number", @min = "0"})
+                }
+                <br/>
+            }
+            <br/>
+            <br/>
+
+
+    }
+    <input type="submit" />
+}

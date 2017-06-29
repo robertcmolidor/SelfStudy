@@ -1,0 +1,22 @@
+﻿
+@using CarPartsInventory.cs.Models
+@model CarPartsInventory.cs.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "AddToOrder";
+}
+
+<h2>AddToOrder</h2>
+
+@using (Html.BeginForm("EnterOrder", "Home"))
+{
+    @Html.DropDownListFor(m => m.SelectedPart, EnumHelper.GetSelectList(typeof(Enums.Parts)), "Select a part", new { @class = "form-control" })
+
+    <input type="submit" name="addItem" id="AddItem" value="Add Item To Cart" />
+    <input type="submit" name="goToCart" id="GoToCart" value="Go To Cart" />
+}
+
+
+@*@foreach (var item in Model.CurrentOrder.OrderItemsList)
+{
+    <p>@item.ItemName    @item.Quantity</p> <br />
+}*@

@@ -1,0 +1,18 @@
+﻿@using CarPartsInventory.cs.Models
+@model CarPartsInventory.cs.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+@using (Html.BeginForm("EnterOrder", "Home"))
+{
+    @Html.DropDownListFor(m => m.SelectedPart, EnumHelper.GetSelectList(typeof(Enums.Parts)), "Select a part", new { @class = "form-control" })
+
+    <input type="submit" name="addItem" id="AddItem" value="Add Item To Cart" />
+    
+}
+

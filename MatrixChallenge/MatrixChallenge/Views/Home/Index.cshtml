@@ -1,0 +1,17 @@
+﻿@model  MatrixChallenge.ViewModels.IndexViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Hey there, possum pants.  Enter a couple numbers</h2>
+
+@using (Html.BeginForm("NumberEntry","Home"))
+{
+    @Html.TextBoxFor(x => Model.Rows, new {@type = "number", @min = "0" }) @Html.Label("Rows") 
+    <br/>
+    @Html.TextBoxFor(x => Model.Cols, new { @type = "number", @min = "0" }) @Html.Label("Columns")
+    <br/>
+    <input type="submit" />
+    
+}
+

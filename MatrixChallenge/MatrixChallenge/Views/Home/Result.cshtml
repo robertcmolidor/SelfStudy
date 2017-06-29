@@ -1,0 +1,17 @@
+﻿@model MatrixChallenge.Models.Matrix
+@{
+    ViewBag.Title = "Result";
+}
+
+<h2>here are the matrices added together.</h2>
+
+
+@for (int i = 0; i < Model.Grid.Length; i++)
+{
+    for (int j = 0; j < Model.Grid[i].Length; j++)
+    {
+        @Model.Grid[i][j]
+    } 
+    <br/> 
+}
+
